@@ -4,4 +4,6 @@
 
 {% block content %}
   <h1>Home</h1>
+  Hi {{ user.username }}!
+  <a href="{% url 'login' %}">logout</a>
 {% endblock %}

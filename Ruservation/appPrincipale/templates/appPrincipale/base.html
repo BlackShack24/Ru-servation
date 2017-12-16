@@ -7,10 +7,7 @@
 <body>
   <header>
     <h1>RUSERVATION</h1>
-    {% if user.is_authenticated %}
-      Hi {{ user.username }}!
-      <a href="{% url 'login' %}">logout</a>
-    {% endif %}
+     <a href="{% url 'login' %}">logout</a>
   </header>
   <hr>
   <main>
