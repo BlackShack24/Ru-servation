@@ -1,6 +1,4 @@
 /Ruservation/settings.py
-/Ruservation/env
-/Ruservation/*.DS_Store
 *.pyc
 __pycache__
 /appPrincipale/*.pyc
