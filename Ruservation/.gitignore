@@ -1,0 +1,9 @@
+/Ruservation/settings.py
+/Ruservation/env
+/Ruservation/*.DS_Store
+*.pyc
+__pycache__
+/appPrincipale/*.pyc
+/appPrincipale/__pycache__/*.pyc
+/appPrincipale/__pycache__
+db.sqlite3
