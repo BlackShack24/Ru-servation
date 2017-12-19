@@ -6,4 +6,12 @@
   <h1>Home</h1>
   Hi {{ user.username }}!
   <a href="{% url 'login' %}">logout</a>
+
+  <h2>Lieux Restauration :</h2> 
+  <ul> 
+    {% for n in lieux %} 
+        <li>{{ n.nom }}</li> 
+    {% endfor %} 
+  </ul> 
+
 {% endblock %}

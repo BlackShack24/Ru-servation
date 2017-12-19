@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from Ruservation.forms import SignUpForm
+from appPrincipale.models import LieuRestauration
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -17,3 +18,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'appPrincipale/signup.html', {'form': form})
+
+def home(request):
+    lieux = LieuRestauration.objects.all() 
+    return render(request, 'appPrincipale/home.html', {'lieux': lieux})

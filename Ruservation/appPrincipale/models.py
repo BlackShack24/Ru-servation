@@ -64,7 +64,6 @@ class LieuRestauration(models.Model):
     dessert = models.ManyToManyField(Dessert, through='Menu')
     boisson = models.ManyToManyField(Boisson, through='Menu')
     
-
     def __str__(self):
         return self.nom             
 

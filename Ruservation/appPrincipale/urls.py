@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout, {'template_name': 'appPrincipale/login.html'}, name='logout'),
     url(r'^home/$', TemplateView.as_view(template_name='appPrincipale/home.html'), name='home'),
     url(r'^signup/$', appPrincipale_views.signup, name='signup'),
+    url(r'^$', views.home, name='home'),
     #url(r'^home/$', views.home, name='home'),
     #url(r'^admin/', admin.site.urls),
 ]
