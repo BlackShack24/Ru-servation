@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Entree(models.Model):
@@ -78,4 +79,21 @@ class Menu(models.Model):
 
     def __str__(self):
         return self.nom
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    ville = models.CharField(max_length=50)
+    lieuEtude = models.CharField(max_length=50)
+    solde = models.FloatField()
+
+    def __str__(self):
+        return self.solde
+
+class Reservation(models.Model):
+    user = models.OneToOneField(UserProfile)
+    date = models.DateTimeField()
+    menu = models.OneToOneField(Menu)
+
+    def __str__(self):
+        return self.date
 
