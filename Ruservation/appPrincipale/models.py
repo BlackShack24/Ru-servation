@@ -53,6 +53,7 @@ class LieuRestauration(models.Model):
      ('SA', 'Salle administrative'),
      ('SW', 'Sandwicherie'),
     )
+    typeR = models.CharField(null=True, max_length=2, choices=TYPE)
     tempsAttente = models.IntegerField(null=True)
     note = models.FloatField(null=True)
     distance = models.FloatField(null=True)
