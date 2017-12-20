@@ -1,0 +1,27 @@
+{% extends 'appPrincipale/base.html' %}
+
+{% block title %}Lieu restauration{% endblock %}
+
+{% block content %}
+
+  <span> {{ lieu.nom }} </span><br><br>
+  <span> {{ lieu.adresse }} </span><br><br>
+  
+  <div>
+     <div>
+        <span>Menu du prochain repas :</span><br>
+        <span>(menu à ajouter)</span>
+     </div><br>
+     <div>
+        <input type="button" value="Y aller (fonctionne pas)">
+        <span>Temps d'attente : {{ lieu.tempsAttente }}</span>
+     </div><br>
+     <div>
+        <input type="button" value="Réserver pour ce repas (fonctionne pas)"><br>
+     </div><br>
+     <div>
+        <input type="button" value="Menus suivants (fonctionne pas)"><br>
+     </div>
+  </div>
+
+{% endblock %}
