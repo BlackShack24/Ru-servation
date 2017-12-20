@@ -6,10 +6,33 @@
   Hi {{ user.username }}!
 
   <h2>Lieux Restauration :</h2> 
+
+  
+  <form action="" method="post">
+    <div>
+        <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois" />
+        <button type="submit">Rechercher (fonctionne pas)</button>
+    </div>
+  </form>
+
   <ul> 
     {% for n in lieux %} 
-        <li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li> 
+        <li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li>
     {% endfor %} 
   </ul> 
+<!--
+    <ul> 
+    {% for n in lieux %} 
+        <?php 
+            $pos = stripos({{n.nom}}, "bra"); 
+            if ($pos === false) {
+        ?> 
+            <li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li>
+        <?php 
+            } 
+        ?> 
+    {% endfor %} 
+  </ul> 
+-->
 
 {% endblock %}
