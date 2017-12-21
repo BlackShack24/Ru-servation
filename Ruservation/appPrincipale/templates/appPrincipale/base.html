@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}RUSERVATION{% endblock %}</title>
+  <title></title>
 </head>
 <body>
   <header>
-    <h1>RUSERVATION</h1>
+    <h1>{% block title %}{% endblock %}</h1>
      <a href="{% url 'login' %}">logout</a>
   </header>
   <hr>

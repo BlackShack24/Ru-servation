@@ -22,3 +22,7 @@ def signup(request):
 def home(request):
     lieux = LieuRestauration.objects.all() 
     return render(request, 'appPrincipale/home.html', {'lieux': lieux})
+
+def lieuR(request, lieu_id):
+    lieu = LieuRestauration.objects.get(pk=lieu_id)
+    return render(request, 'appPrincipale/lieu.html', {'lieu': lieu})
