@@ -98,3 +98,8 @@ class Reservation(models.Model):
     def __str__(self):
         return self.date
 
+class Favoris(models.Model):
+	user = models.ForeignKey(UserProfile)
+	lieu = models.ManyToManyField(LieuRestauration)
+
+
