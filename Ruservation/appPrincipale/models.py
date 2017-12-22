@@ -42,6 +42,7 @@ class Boisson(models.Model):
     def __str__(self):
         return self.nom   
 
+
 class LieuRestauration(models.Model):
     nom = models.CharField(max_length=50)
     adresse = models.CharField(max_length=100)
@@ -58,28 +59,42 @@ class LieuRestauration(models.Model):
     tempsAttente = models.IntegerField(null=True)
     note = models.FloatField(null=True)
     distance = models.FloatField(null=True)
-    platPrincipal = models.ManyToManyField(PlatPrincipal, through='Menu')
-    entree = models.ManyToManyField(Entree, through='Menu')
-    fromage = models.ManyToManyField(Fromage, through='Menu')
-    dessert = models.ManyToManyField(Dessert, through='Menu')
-    boisson = models.ManyToManyField(Boisson, through='Menu')
     
     def __str__(self):
         return self.nom             
 
 class Menu(models.Model):
-    nom = models.CharField(max_length=50)
-    prix = models.FloatField()
     lieuRestauration = models.ForeignKey(LieuRestauration)
-    platPrincipal = models.ForeignKey(PlatPrincipal)
-    entree = models.ForeignKey(Entree, null=True)
-    fromage = models.ForeignKey(Fromage, null=True)
-    dessert = models.ForeignKey(Dessert, null=True)
-    boisson = models.ForeignKey(Boisson, null=True)
+    date = models.DateTimeField(null=True)
+    platPrincipal = models.ManyToManyField(PlatPrincipal, through='MenuPlatPrincipal')
+    entree = models.ManyToManyField(Entree, through='MenuEntree')
+    fromage = models.ManyToManyField(Fromage, through='MenuFromage')
+    dessert = models.ManyToManyField(Dessert, through='MenuDessert')
+    boisson = models.ManyToManyField(Boisson, through='MenuBoisson')
     pain = models.NullBooleanField()
 
     def __str__(self):
-        return self.nom
+        return self.platPrincipal
+
+class MenuFromage(models.Model):
+    fromage = models.ForeignKey(Fromage)
+    menu = models.ForeignKey(Menu)
+
+class MenuEntree(models.Model):
+    entree = models.ForeignKey(Entree)
+    menu = models.ForeignKey(Menu)
+
+class MenuPlatPrincipal(models.Model):
+    platPrincipal = models.ForeignKey(PlatPrincipal)
+    menu = models.ForeignKey(Menu)      
+
+class MenuDessert(models.Model):
+    dessert = models.ForeignKey(Dessert)
+    menu = models.ForeignKey(Menu)
+
+class MenuBoisson(models.Model):
+    boisson = models.ForeignKey(Boisson)
+    menu = models.ForeignKey(Menu)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -87,19 +102,16 @@ class UserProfile(models.Model):
     lieuEtude = models.CharField(max_length=50)
     solde = models.FloatField()
 
-    def __str__(self):
-        return self.solde
+class Favoris(models.Model):
+    user = models.ForeignKey(UserProfile)
+    lieu = models.ManyToManyField(LieuRestauration)
 
 class Reservation(models.Model):
-    user = models.OneToOneField(UserProfile)
+    prix = models.FloatField()
+    user = models.ForeignKey(UserProfile)
     date = models.DateTimeField()
-    menu = models.OneToOneField(Menu)
+    menu = models.ForeignKey(Menu)
 
     def __str__(self):
         return self.date
-
-class Favoris(models.Model):
-	user = models.ForeignKey(UserProfile)
-	lieu = models.ManyToManyField(LieuRestauration)
-
 
