@@ -65,13 +65,12 @@ class LieuRestauration(models.Model):
 
 class Menu(models.Model):
     lieuRestauration = models.ForeignKey(LieuRestauration)
-    date = models.DateTimeField(null=True)
+    date = models.DateField(null=True)
     platPrincipal = models.ManyToManyField(PlatPrincipal, through='MenuPlatPrincipal')
     entree = models.ManyToManyField(Entree, through='MenuEntree')
     fromage = models.ManyToManyField(Fromage, through='MenuFromage')
     dessert = models.ManyToManyField(Dessert, through='MenuDessert')
     boisson = models.ManyToManyField(Boisson, through='MenuBoisson')
-    pain = models.NullBooleanField()
 
     def __str__(self):
         return self.platPrincipal
@@ -111,6 +110,7 @@ class Reservation(models.Model):
     user = models.ForeignKey(UserProfile)
     date = models.DateTimeField()
     menu = models.ForeignKey(Menu)
+    pain = models.NullBooleanField()
 
     def __str__(self):
         return self.date
