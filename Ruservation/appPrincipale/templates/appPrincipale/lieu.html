@@ -6,11 +6,20 @@
 
   <span> {{ lieu.nom }} </span><br><br>
   <span> {{ lieu.adresse }} </span><br><br>
-  
   <div>
      <div>
-        <span>Menu du prochain repas :</span><br>
-        <span>(menu à ajouter)</span>
+        <span>Menu du prochain repas [ {{ menu.date }} ] :</span><br>
+        <span>  
+        	<ul> 
+               {% for n in menupp %}
+                  {% for m in plats %}
+                     {% if n.platPrincipal_id == m.id %}
+                         <li>{{ m.nom }}</li>
+                     {% endif %}
+                  {% endfor %}     
+               {% endfor %} 
+            </ul> 
+        </span>
      </div><br>
      <div>
         <input type="button" value="Y aller (fonctionne pas)">
