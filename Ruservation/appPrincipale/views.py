@@ -31,5 +31,5 @@ def lieuR(request, lieu_id):
     return render(request, 'appPrincipale/lieu.html', {'lieu': lieu, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp})
 
 def profil(request, user_id):
-	userProfil = UserProfile.objects.get(pk=user_id)
+	userProfil = UserProfile.objects.get(user_id=user_id)
 	return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil})

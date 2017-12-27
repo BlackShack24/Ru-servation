@@ -14,8 +14,8 @@
   </div><br><br>
   <div>
       <span>Régime : Aucun</span><br>
-      <span>Ville : {{ user.ville }} </span><br>
-      <span>Lieu : {{ user.lieuEtude }} </span><br>
+      <span>Ville : {{ userProfil.ville }} </span><br>
+      <span>Lieu : {{ userProfil.lieuEtude }} </span><br>
   </div><br><br>
   <div>
      <input type="button" value="Historique (fonctionne pas)">
@@ -24,7 +24,9 @@
      <input type="button" value="Favoris (fonctionne pas)">
   </div><br>
   <div>
-     <input type="button" value="Déconnexion (fonctionne pas)">
+     <form action="{% url 'login' %}" method="get">
+         <input type="submit" value="Déconnexion"/>
+     </form><br>
      <input type="button" value="Paramètres (fonctionne pas)">
   </div><br>
 
