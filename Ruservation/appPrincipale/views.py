@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from Ruservation.forms import SignUpForm
-from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal
+from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal, UserProfile
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -29,3 +29,7 @@ def lieuR(request, lieu_id):
     menupp = MenuPlatPrincipal.objects.filter(menu_id = menu.id)
     platPrincipal = PlatPrincipal.objects.all()
     return render(request, 'appPrincipale/lieu.html', {'lieu': lieu, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp})
+
+def profil(request, user_id):
+	userProfil = UserProfile.objects.get(pk=user_id)
+	return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil})

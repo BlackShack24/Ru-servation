@@ -1,0 +1,32 @@
+{% extends 'appPrincipale/base.html' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block content %}
+
+
+  <div>
+      <span> {{ user.first_name }} </span><br>
+      <span> {{ user.last_name }} </span>
+  </div><br><br>
+  <div>
+      <span>Solde IZLY :  {{ userProfil.solde }} </span>
+  </div><br><br>
+  <div>
+      <span>Régime : Aucun</span><br>
+      <span>Ville : {{ user.ville }} </span><br>
+      <span>Lieu : {{ user.lieuEtude }} </span><br>
+  </div><br><br>
+  <div>
+     <input type="button" value="Historique (fonctionne pas)">
+  </div><br>
+  <div>
+     <input type="button" value="Favoris (fonctionne pas)">
+  </div><br>
+  <div>
+     <input type="button" value="Déconnexion (fonctionne pas)">
+     <input type="button" value="Paramètres (fonctionne pas)">
+  </div><br>
+
+
+{% endblock %}

@@ -7,7 +7,8 @@
 <body>
   <header>
     <h1>{% block title %}{% endblock %}</h1>
-     <a href="{% url 'login' %}">logout</a>
+     <a href="{% url 'login' %}">logout</a><br>
+     <a href="/appPrincipale/profil/{{ user.id }}/">profil</a><br>
   </header>
   <hr>
   <main>
