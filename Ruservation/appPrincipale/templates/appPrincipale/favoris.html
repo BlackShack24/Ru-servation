@@ -1,0 +1,13 @@
+{% extends 'appPrincipale/base.html' %}
+
+{% block title %}Favoris{% endblock %}
+
+{% block content %}
+
+  <ul> 
+    {% for n in lieux %} 
+        <li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li>
+    {% endfor %} 
+  </ul> 
+
+{% endblock %}
