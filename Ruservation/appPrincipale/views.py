@@ -51,3 +51,7 @@ def favoris(request, user_id):
     fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
     lieux = LieuRestauration.objects.filter(id__in = fav)
     return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux})
+
+def parametres(request, user_id):
+    userP = UserProfile.objects.get(user_id=user_id)
+    return render(request, 'appPrincipale/parametres.html', {'userP' : userP})

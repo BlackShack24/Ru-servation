@@ -61,7 +61,16 @@ class LieuRestauration(models.Model):
     distance = models.FloatField(null=True)
     
     def __str__(self):
-        return self.nom             
+        return self.nom 
+
+class Regime(models.Model):
+    vegetarien = models.NullBooleanField()
+    vegan = models.NullBooleanField()
+
+class Allergie(models.Model):
+    sGluten = models.NullBooleanField()
+    sLactose = models.NullBooleanField()
+
 
 class Menu(models.Model):
     lieuRestauration = models.ForeignKey(LieuRestauration)
@@ -71,6 +80,8 @@ class Menu(models.Model):
     fromage = models.ManyToManyField(Fromage, through='MenuFromage')
     dessert = models.ManyToManyField(Dessert, through='MenuDessert')
     boisson = models.ManyToManyField(Boisson, through='MenuBoisson')
+    regime = models.ForeignKey(Regime, null=True)
+    allergie = models.ForeignKey(Allergie, null=True)
 
     def __str__(self):
         return self.platPrincipal
@@ -100,6 +111,9 @@ class UserProfile(models.Model):
     ville = models.CharField(max_length=50)
     lieuEtude = models.CharField(max_length=50)
     solde = models.FloatField()
+    regime = models.ForeignKey(Regime, null=True)
+    allergie = models.ForeignKey(Allergie, null=True)
+
 
 class Favoris(models.Model):
     user = models.ForeignKey(UserProfile)
@@ -114,4 +128,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return self.date
-

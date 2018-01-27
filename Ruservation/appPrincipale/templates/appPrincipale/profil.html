@@ -25,8 +25,10 @@
   <div>
      <form action="{% url 'login' %}" method="get">
          <input type="submit" value="Déconnexion"/>
-     </form><br>
-     <input type="button" value="Paramètres (fonctionne pas)">
+     </form>
+  </div><br>
+    <div>
+     <a href="/appPrincipale/parametres/{{ user.id }}/">Paramètres</a><br>
   </div><br>
 
 

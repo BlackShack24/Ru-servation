@@ -1,0 +1,41 @@
+{% extends 'appPrincipale/base.html' %}
+
+{% block title %}Parametres{% endblock %}
+
+{% block content %}
+
+  <fieldset>
+    <legend>Régimes</legend>
+    <div>
+      <input type="checkbox" id="vegetarien" name="regime" value="vegetarien">
+      <label for="vegetarien">Végétarien</label>
+    </div>
+    <div>
+      <input type="checkbox" id="vegan" name="regime" value="vegan">
+      <label for="vegan">Vegan</label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Allergies</legend>
+    <div>
+      <input type="checkbox" id="sGluten" name="allergie" value="sGluten">
+      <label for="sGluten">Sans gluten</label>
+    </div>
+    <div>
+      <input type="checkbox" id="sLactose" name="allergie" value="sLactose">
+      <label for="sLactose">Sans lactose</label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Localisation</legend>
+    <div>
+      <label for="ville">Ville : </label>
+      <input type="text" id="ville" name="ville">
+    </div><br>
+    <div>
+      <label for="etab">Etablissement : </label>
+      <input type="text" id="etab" name="etab">
+    </div>
+  </fieldset>
+
+{% endblock %}

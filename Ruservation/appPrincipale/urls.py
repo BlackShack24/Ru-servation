@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^profil/(?P<user_id>[0-9]+)/$', views.profil, name='profil'),
     url(r'^addFav/(?P<lieu_id>[0-9]+)/(?P<user_id>[0-9]+)/$', views.addFav, name='addFav'),
     url(r'^favoris/(?P<user_id>[0-9]+)/$', views.favoris, name='favoris'),
+    url(r'^parametres/(?P<user_id>[0-9]+)/$', views.parametres, name='parametres'),
 ]
