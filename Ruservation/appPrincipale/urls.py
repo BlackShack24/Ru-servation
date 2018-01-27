@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^home/$', views.home, name='home'),
     url(r'^lieuR/(?P<lieu_id>[0-9]+)/$', views.lieuR, name='lieuR'),
     url(r'^profil/(?P<user_id>[0-9]+)/$', views.profil, name='profil'),
+    url(r'^addFav/(?P<lieu_id>[0-9]+)/(?P<user_id>[0-9]+)/$', views.addFav, name='addFav'),
 ]

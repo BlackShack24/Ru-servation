@@ -103,7 +103,7 @@ class UserProfile(models.Model):
 
 class Favoris(models.Model):
     user = models.ForeignKey(UserProfile)
-    lieu = models.ManyToManyField(LieuRestauration)
+    lieu = models.ForeignKey(LieuRestauration, null=True)
 
 class Reservation(models.Model):
     prix = models.FloatField()
