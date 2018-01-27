@@ -14,3 +14,11 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+class ParamForm(forms.Form):
+    vege = forms.BooleanField(required=False)
+    vega = forms.BooleanField(required=False)
+    sGlu = forms.BooleanField(required=False)
+    sLac = forms.BooleanField(required=False)
+    ville = forms.CharField(max_length=30, required=False)
+    univ = forms.CharField(max_length=30, required=False)

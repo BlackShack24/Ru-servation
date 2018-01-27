@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<form action="/ma-page-de-traitement" method="post">
   <fieldset>
     <legend>Régimes</legend>
     <div>
@@ -30,12 +31,16 @@
     <legend>Localisation</legend>
     <div>
       <label for="ville">Ville : </label>
-      <input type="text" id="ville" name="ville">
+      <input type="text" id="ville" name="ville" placeholder="Nancy">
     </div><br>
     <div>
       <label for="etab">Etablissement : </label>
-      <input type="text" id="etab" name="etab">
+      <input type="text" id="etab" name="etab" placeholder="ARTEM">
     </div>
   </fieldset>
+  <div class="button">
+        <button type="submit">Valider les changements</button>
+  </div>
+</form>
 
 {% endblock %}

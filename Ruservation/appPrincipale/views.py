@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from Ruservation.forms import SignUpForm
-from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal, UserProfile, Favoris
+from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal, UserProfile, Favoris, Regime, Allergie
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -54,4 +54,14 @@ def favoris(request, user_id):
 
 def parametres(request, user_id):
     userP = UserProfile.objects.get(user_id=user_id)
+    if UserProfile.objects.filter(user_id=user_id, regime_id__isnull=True):
+        r = Regime(vegetarien=False, vegan=False)
+        r.save()
+        userP.regime_id = r.id
+        userP.save()
+    if UserProfile.objects.filter(user_id=user_id, allergie_id__isnull=True):
+        a = Allergie(sGluten=False, sLactose=False)
+        a.save()
+        userP.allergie_id = a.id    
+        userP.save()
     return render(request, 'appPrincipale/parametres.html', {'userP' : userP})
