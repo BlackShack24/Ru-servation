@@ -31,5 +31,9 @@ def lieuR(request, lieu_id):
     return render(request, 'appPrincipale/lieu.html', {'lieu': lieu, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp})
 
 def profil(request, user_id):
-	userProfil = UserProfile.objects.get(user_id=user_id)
-	return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil})
+    if UserProfile.objects.filter(user_id=user_id).count() == 0:
+        userProfil = UserProfile(ville='Nancy', lieuEtude='ARTEM', solde=0, user_id=user_id)
+        userProfil.save()
+    else:
+        userProfil = UserProfile.objects.get(user_id=user_id)
+    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil})
