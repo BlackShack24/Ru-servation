@@ -16,9 +16,9 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
 class ParamForm(forms.Form):
-    vege = forms.BooleanField(required=False)
-    vega = forms.BooleanField(required=False)
-    sGlu = forms.BooleanField(required=False)
-    sLac = forms.BooleanField(required=False)
+    vegetarien = forms.BooleanField(required=False)
+    vegan = forms.BooleanField(required=False)
+    sGluten = forms.BooleanField(required=False)
+    sLactose = forms.BooleanField(required=False)
     ville = forms.CharField(max_length=30, required=False)
-    univ = forms.CharField(max_length=30, required=False)
+    etab = forms.CharField(max_length=30, required=False)

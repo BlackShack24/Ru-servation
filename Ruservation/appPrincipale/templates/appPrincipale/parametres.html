@@ -4,26 +4,27 @@
 
 {% block content %}
 
-<form action="/ma-page-de-traitement" method="post">
+<form action="/appPrincipale/getParam/{{ user.id }}/" method="post">
+  {% csrf_token %}
   <fieldset>
     <legend>Régimes</legend>
     <div>
-      <input type="checkbox" id="vegetarien" name="regime" value="vegetarien">
+      <input type="checkbox" id="vegetarien" name="vegetarien" value="vegetarien">
       <label for="vegetarien">Végétarien</label>
     </div>
     <div>
-      <input type="checkbox" id="vegan" name="regime" value="vegan">
+      <input type="checkbox" id="vegan" name="vegan" value="vegan">
       <label for="vegan">Vegan</label>
     </div>
   </fieldset>
   <fieldset>
     <legend>Allergies</legend>
     <div>
-      <input type="checkbox" id="sGluten" name="allergie" value="sGluten">
+      <input type="checkbox" id="sGluten" name="sGluten" value="sGluten">
       <label for="sGluten">Sans gluten</label>
     </div>
     <div>
-      <input type="checkbox" id="sLactose" name="allergie" value="sLactose">
+      <input type="checkbox" id="sLactose" name="sLactose" value="sLactose">
       <label for="sLactose">Sans lactose</label>
     </div>
   </fieldset>

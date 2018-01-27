@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from Ruservation.forms import SignUpForm
+from Ruservation.forms import SignUpForm, ParamForm
 from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal, UserProfile, Favoris, Regime, Allergie
 # Create your views here.
 def signup(request):
@@ -65,3 +65,23 @@ def parametres(request, user_id):
         userP.allergie_id = a.id    
         userP.save()
     return render(request, 'appPrincipale/parametres.html', {'userP' : userP})
+
+def get_Param(request, user_id):
+    form = ParamForm(request.POST)
+    if form.is_valid():
+        userP = UserProfile.objects.get(user_id=user_id)
+        if(form.cleaned_data['ville'] is not None):
+            userP.ville = form.cleaned_data['ville']
+        if(form.cleaned_data['etab']  is not None):
+            userP.lieuEtude = form.cleaned_data['etab']
+        userP.save()
+        al = Allergie.objects.get(pk=userP.allergie_id)
+        re = Regime.objects.get(pk=userP.regime_id)
+        al.sGluten = form.cleaned_data['sGluten']
+        al.sLactose = form.cleaned_data['sLactose']
+        re.vegetarien = form.cleaned_data['vegetarien']
+        re.vegan = form.cleaned_data['vegan']
+        al.save()
+        re.save()
+
+    return render(request, 'appPrincipale/parametres.html', {'userP': userP})
