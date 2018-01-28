@@ -64,24 +64,26 @@ def parametres(request, user_id):
         a.save()
         userP.allergie_id = a.id    
         userP.save()
-    return render(request, 'appPrincipale/parametres.html', {'userP' : userP})
+    re = Regime.objects.get(pk=userP.regime_id)
+    al = Allergie.objects.get(pk=userP.allergie_id)
+    return render(request, 'appPrincipale/parametres.html', {'userP' : userP, 're' : re, 'al' : al})
 
 def get_Param(request, user_id):
     form = ParamForm(request.POST)
     if form.is_valid():
         userP = UserProfile.objects.get(user_id=user_id)
-        if(form.cleaned_data['ville'] is not None):
-            userP.ville = form.cleaned_data['ville']
-        if(form.cleaned_data['etab']  is not None):
-            userP.lieuEtude = form.cleaned_data['etab']
-        userP.save()
         al = Allergie.objects.get(pk=userP.allergie_id)
         re = Regime.objects.get(pk=userP.regime_id)
+
+        userP.ville = form.cleaned_data['ville']
+        userP.lieuEtude = form.cleaned_data['etab']
         al.sGluten = form.cleaned_data['sGluten']
         al.sLactose = form.cleaned_data['sLactose']
         re.vegetarien = form.cleaned_data['vegetarien']
         re.vegan = form.cleaned_data['vegan']
+        
+        userP.save()
         al.save()
         re.save()
 
-    return render(request, 'appPrincipale/parametres.html', {'userP': userP})
+    return render(request, 'appPrincipale/parametres.html', {'userP': userP, 're' : re, 'al' : al})

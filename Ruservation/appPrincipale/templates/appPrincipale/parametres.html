@@ -9,22 +9,22 @@
   <fieldset>
     <legend>Régimes</legend>
     <div>
-      <input type="checkbox" id="vegetarien" name="vegetarien" value="vegetarien">
+      <input type="checkbox" id="vegetarien" name="vegetarien" value="vegetarien" {% ifequal re.vegetarien True %} checked {% endifequal %} >
       <label for="vegetarien">Végétarien</label>
     </div>
     <div>
-      <input type="checkbox" id="vegan" name="vegan" value="vegan">
+      <input type="checkbox" id="vegan" name="vegan" value="vegan" {% ifequal re.vegan True %} checked {% endifequal %} >
       <label for="vegan">Vegan</label>
     </div>
   </fieldset>
   <fieldset>
     <legend>Allergies</legend>
     <div>
-      <input type="checkbox" id="sGluten" name="sGluten" value="sGluten">
+      <input type="checkbox" id="sGluten" name="sGluten" value="sGluten" {% ifequal al.sGluten True %} checked {% endifequal %} >
       <label for="sGluten">Sans gluten</label>
     </div>
     <div>
-      <input type="checkbox" id="sLactose" name="sLactose" value="sLactose">
+      <input type="checkbox" id="sLactose" name="sLactose" value="sLactose" {% ifequal al.sLactose True %} checked {% endifequal %} >
       <label for="sLactose">Sans lactose</label>
     </div>
   </fieldset>
@@ -32,11 +32,11 @@
     <legend>Localisation</legend>
     <div>
       <label for="ville">Ville : </label>
-      <input type="text" id="ville" name="ville" placeholder="Nancy">
+      <input type="text" id="ville" name="ville" placeholder="Nancy" value= "{{ userP.ville }}">
     </div><br>
     <div>
       <label for="etab">Etablissement : </label>
-      <input type="text" id="etab" name="etab" placeholder="ARTEM">
+      <input type="text" id="etab" name="etab" placeholder="ARTEM" value = "{{ userP.lieuEtude }}">
     </div>
   </fieldset>
   <div class="button">

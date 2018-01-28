@@ -8,17 +8,46 @@
 
   <h2>Lieux Restauration :</h2> 
   
-  <form action="" method="post">
+  <form name="recherche" action="/appPrincipale/home/" method="post" onsubmit="DoSubmit();" >
+    {% csrf_token %}
     <div>
-        <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois" />
-        <button type="submit">Rechercher (fonctionne pas)</button>
+        <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois"/>
+        <button type="button" onClick="DoSubmit()">Rechercher</button>
     </div>
   </form>
 
+<script>
+    var sizeLieux = "{{ lieux.count|safe }}";
+    var tabId = new Array(sizeLieux);
+    var tabNom = new Array(sizeLieux);
+    var i = 0;
+</script>
+
   <ul> 
-    {% for n in lieux %} 
-        <li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li>
-    {% endfor %} 
+    {% for n in lieux %}
+     <script>
+      tabId[i] = "{{ n.id|safe }}";
+      tabNom[i] = "{{ n.nom|safe }}";
+      i++;
+     </script> 
+     
+     <span id="{{ n.id }}"><li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li></span>
+
+    {% endfor %}
   </ul> 
+
+<script>
+      function DoSubmit(){
+        for (var j = 0; j < sizeLieux; j++) {
+          if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1) {
+            document.getElementById(tabId[j]).style.display = "none";
+          }
+          else {
+            document.getElementById(tabId[j]).style.display = "block";
+          }
+          
+        }
+      }
+</script> 
 
 {% endblock %}
