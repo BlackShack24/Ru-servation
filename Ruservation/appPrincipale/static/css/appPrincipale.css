@@ -1,0 +1,15 @@
+body {
+    padding-left: 15px;
+    font-family: 'Lobster';
+    background-color: #fefee2;
+}
+
+h1 {
+	color: #FCA205;
+}
+
+img.logo {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
