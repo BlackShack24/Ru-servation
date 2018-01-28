@@ -87,3 +87,8 @@ def get_Param(request, user_id):
         re.save()
 
     return render(request, 'appPrincipale/parametres.html', {'userP': userP, 're' : re, 'al' : al})
+
+def geoLoc(request, lieu_id):
+    lieu = LieuRestauration.objects.get(pk=lieu_id)
+
+    return render(request, 'appPrincipale/geoLoc.html', {'lieu': lieu})

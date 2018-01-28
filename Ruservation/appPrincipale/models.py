@@ -59,6 +59,8 @@ class LieuRestauration(models.Model):
     tempsAttente = models.IntegerField(null=True)
     note = models.FloatField(null=True)
     distance = models.FloatField(null=True)
+    posX = models.FloatField(null=True)
+    posY = models.FloatField(null=True)
     
     def __str__(self):
         return self.nom 

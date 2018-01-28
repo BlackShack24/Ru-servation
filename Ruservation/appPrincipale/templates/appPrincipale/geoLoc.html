@@ -1,0 +1,30 @@
+{% extends 'appPrincipale/base.html' %}
+
+{% block title %}Localisation{% endblock %}
+
+{% block content %}
+
+<h2>{{ lieu.nom }}</h2>
+
+<div id="googleMap" style="width:50%;height:400px;"></div>
+
+<script>
+    function myMap() {
+      var myLatLng = new google.maps.LatLng("{{ lieu.posX|safe }}","{{ lieu.posY|safe }}");
+      var map= {
+        center: myLatLng,
+        zoom:18,
+      };
+      var map=new google.maps.Map(document.getElementById("googleMap"),map);
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: "{{ lieu.nom|safe }}"
+      });
+    }
+</script>
+
+ <script src="https://maps.google.com/maps/api/js?key=AIzaSyAsqUjKe9kLGBUQiqqfG8Q2V1YjkcrNi2Y&callback=myMap" async="" defer="defer" type="text/javascript"></script>
+
+
+{% endblock %}

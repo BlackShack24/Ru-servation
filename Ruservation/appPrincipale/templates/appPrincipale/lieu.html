@@ -24,7 +24,10 @@
         </span>
      </div><br>
      <div>
-        <input type="button" value="Y aller (fonctionne pas)">
+        <form name="geoLoc" action="/appPrincipale/geoLoc/{{ lieu.id }}/" method="post">
+           {% csrf_token %}
+           <input type="submit" value="Y aller (fonctionne pas)">
+        </form>
         <span>Temps d'attente : {{ lieu.tempsAttente }}</span>
      </div><br>
      <div>
