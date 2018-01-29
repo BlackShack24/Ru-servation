@@ -11,6 +11,11 @@
 <body>
   <header>
     <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
+    <div>
+    <form action="/appPrincipale/home/" method="get">
+         <input type="submit" value="Home"/>
+    </form>
+  </div><br>
     <h1>{% block title %}{% endblock %}</h1>
   </header>
   <hr>
