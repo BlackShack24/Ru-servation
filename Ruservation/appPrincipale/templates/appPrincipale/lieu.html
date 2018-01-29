@@ -6,7 +6,10 @@
 
   <span> {{ lieu.nom }} </span><br><br>
   <span> {{ lieu.adresse }} </span><br><br>
-  <a href="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}/"> Ajouter au favoris</a><br>
+<!--   <a href="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}/"> Ajouter au favoris</a><br>
+ -->  <form action="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}" method="get">
+    <input type="submit" value="Ajouter au favoris"/>
+  </form>
   
   <div>
      <div>

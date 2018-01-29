@@ -44,8 +44,9 @@ def addFav(request, lieu_id, user_id):
     else:
         f = Favoris(user_id=user_id, lieu_id=lieu_id)
         f.save()
-    lieux = LieuRestauration.objects.all()
-    return render(request, 'appPrincipale/home.html', {'lieux' : lieux})
+    fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
+    lieux = LieuRestauration.objects.filter(id__in = fav)
+    return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux})
 
 def favoris(request, user_id):
     fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')

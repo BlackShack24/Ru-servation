@@ -20,15 +20,19 @@
      <input type="button" value="Historique (fonctionne pas)">
   </div><br>
   <div>
-     <a href="/appPrincipale/favoris/{{ user.id }}/">Favoris</a><br>
+    <form action="/appPrincipale/favoris/{{ user.id }}/" method="get">
+         <input type="submit" value="Favoris"/>
+    </form>
   </div><br>
   <div>
      <form action="{% url 'login' %}" method="get">
          <input type="submit" value="Déconnexion"/>
      </form>
   </div><br>
-    <div>
-     <a href="/appPrincipale/parametres/{{ user.id }}/">Paramètres</a><br>
+  <div>
+    <form action="/appPrincipale/parametres/{{ user.id }}/" method="get">
+         <input type="submit" value="Paramètres"/>
+    </form>
   </div><br>
 
 
