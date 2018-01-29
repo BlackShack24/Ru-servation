@@ -3,16 +3,23 @@
 <head>
   <meta charset="utf-8">
   {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-reboot.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
   <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/appPrincipale.css' %}">
   <title></title>
 </head>
 <body>
   <header>
-    <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
-    <h1>{% block title %}{% endblock %}</h1>
+    <div class = "row">
+      <div class = "col-8">
+        <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">  
+      </div>
+      <div class = "col-4">
+        <h1>{% block title %}{% endblock %}</h1>
+      </div>
+    </div>
   </header>
+ 
   <hr>
   <main>
     {% block content %}
