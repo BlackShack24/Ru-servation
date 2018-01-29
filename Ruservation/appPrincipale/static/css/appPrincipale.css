@@ -1,10 +1,20 @@
+@font-face {
+    font-family: "Noteworthy";
+    src: url("../police/Noteworthy-Lt.ttf");
+}
+@font-face {
+    font-family: "Bahagia";
+    src: url("../police/Bahagia.ttf");
+}
+
+
 body {
     padding-left: 15px;
-    font-family: 'Lobster';
+    font-family: "Noteworthy";
     background-color: #fefee2;
 }
 
-h1 {
+h2 {
 	color: #FCA205;
 }
 
@@ -12,4 +22,11 @@ img.logo {
    display: block;
    margin-left: auto;
    margin-right: auto;
+}
+
+h1 {
+   font-size: 50px;
+   font-family: "Bahagia";
+   color: #e67e30;
+   text-align: center;
 }

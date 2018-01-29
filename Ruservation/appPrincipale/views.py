@@ -39,6 +39,7 @@ def profil(request, user_id):
     return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil})
 
 def addFav(request, lieu_id, user_id):
+    userP = UserProfile.objects.get(user_id=user_id)
     if Favoris.objects.filter(user_id=user_id, lieu_id=lieu_id).count()>0:
         Favoris.objects.filter(user_id=user_id, lieu_id=lieu_id).delete()
     else:
@@ -46,12 +47,13 @@ def addFav(request, lieu_id, user_id):
         f.save()
     fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
     lieux = LieuRestauration.objects.filter(id__in = fav)
-    return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux})
+    return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux, 'userP' : userP})
 
 def favoris(request, user_id):
+    userP = UserProfile.objects.get(user_id=user_id)
     fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
     lieux = LieuRestauration.objects.filter(id__in = fav)
-    return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux})
+    return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux, 'userP' : userP})
 
 def parametres(request, user_id):
     userP = UserProfile.objects.get(user_id=user_id)
