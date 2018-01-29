@@ -1,6 +1,11 @@
+@font-face {
+    font-family: "Noteworthy";
+    src: url("../police/Noteworthy-Lt.ttf");
+}
+
 body {
     padding-left: 15px;
-    font-family: 'Lobster';
+    font-family: "Noteworthy";
     background-color: #fefee2;
 }
 
