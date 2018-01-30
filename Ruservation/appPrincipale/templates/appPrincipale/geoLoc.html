@@ -9,30 +9,20 @@
 <div id="googleMap" style="width:50%;height:400px;"></div>
 
 <script>
-	// Coordonées ARTEM 48.6728463,6.1694717
     function myMap() {
+    	
       var myLatLng = new google.maps.LatLng("{{ lieu.posX|safe }}","{{ lieu.posY|safe }}");
       var myLatLng2 = new google.maps.LatLng(48.6728463,6.1694717);
-/*      var map= {
-        center: myLatLng,
-        zoom:18,
-      };
-      var map=new google.maps.Map(document.getElementById("googleMap"),map);
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: "{{ lieu.nom|safe }}"
-      });*/
+      var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+      var map = new google.maps.Map(document.getElementById('googleMap'), {
+        zoom: 16,
+        center: myLatLng
+      });
 
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('googleMap'), {
-          zoom: 16,
-          center: myLatLng
-        });
-        directionsDisplay.setMap(map);
+      directionsDisplay.setMap(map);
 
-directionsService.route({
+      directionsService.route({
           origin: myLatLng2,
           destination: myLatLng,
           travelMode: 'WALKING'
@@ -42,28 +32,7 @@ directionsService.route({
           } else {
             window.alert('Directions request failed due to ' + status);
           }
-        });
-
-
-/*
-        var onChangeHandler = function() {
-          calculateAndDisplayRoute(directionsService, directionsDisplay);
-        };
-
-      }
-
-      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        directionsService.route({
-          origin: myLatLng2,
-          destination: myLatLng,
-          travelMode: 'WALKING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });*/
+      });
 
     }
 </script>
