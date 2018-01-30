@@ -66,7 +66,6 @@
   <input type="checkbox">
   <span class="slider round"></span>
 </label> -->
-<span id="hey"></span>
 
 <script>
     var sizeLieux = "{{ lieux.count|safe }}";
@@ -75,7 +74,7 @@
     var tabType = new Array(sizeLieux);
     var tabDist = new Array(sizeLieux);
     var tabNote = new Array(sizeLieux);
-    var i = 0;
+    var i = 0; 
 </script>
 
   <ul> 
@@ -96,7 +95,6 @@
 
 <script>
       function DoSubmit(){
-        document.getElementById("hey").value = tabType[2];
         for (var j = 0; j < sizeLieux; j++) {
           if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1 
             || !(document.getElementById(tabType[j]).checked)
@@ -104,12 +102,7 @@
             || !(fnote(tabNote[j]))) {
             document.getElementById(tabId[j]).style.display = "none";
           }
-          else {
-            if(document.getElementById(tabType[j]).checked)  {
-              document.getElementById(tabId[j]).style.display = "block";
-            }
-          }
-          
+          else document.getElementById(tabId[j]).style.display = "block";
         }
       }
       function fdist(dist) {

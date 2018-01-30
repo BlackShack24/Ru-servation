@@ -20,8 +20,9 @@ def signup(request):
     return render(request, 'appPrincipale/signup.html', {'form': form})
 
 def home(request):
-    lieux = LieuRestauration.objects.all() 
-    return render(request, 'appPrincipale/home.html', {'lieux': lieux})
+    lieux = LieuRestauration.objects.all()
+    fav = Favoris.objects.all()
+    return render(request, 'appPrincipale/home.html', {'lieux': lieux, 'fav' : fav})
 
 def lieuR(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
