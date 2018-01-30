@@ -22,7 +22,12 @@ def signup(request):
 def home(request):
     lieux = LieuRestauration.objects.all()
     fav = Favoris.objects.all()
-    return render(request, 'appPrincipale/home.html', {'lieux': lieux, 'fav' : fav})
+    menu = Menu.objects.all()
+    menupp = MenuPlatPrincipal.objects.all()
+    platPrincipal = PlatPrincipal.objects.all()
+    re = Regime.objects.all()
+    al = Allergie.objects.all()
+    return render(request, 'appPrincipale/home.html', {'lieux': lieux, 'fav' : fav, 'menu' : menu, 'menupp' : menupp, 'pp' : platPrincipal, 're' : re, 'al' : al})
 
 def lieuR(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)

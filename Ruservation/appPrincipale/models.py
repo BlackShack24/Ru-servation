@@ -2,6 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Regime(models.Model):
+    vegetarien = models.NullBooleanField()
+    vegan = models.NullBooleanField()
+
+class Allergie(models.Model):
+    sGluten = models.NullBooleanField()
+    sLactose = models.NullBooleanField()
+
 class Entree(models.Model):
     nom = models.CharField(max_length=50)
     prix = models.FloatField()
@@ -14,6 +22,8 @@ class PlatPrincipal(models.Model):
     nom = models.CharField(max_length=50)
     prix = models.FloatField()
     points = models.IntegerField(null=True)
+    regime = models.ForeignKey(Regime, null=True)
+    allergie = models.ForeignKey(Allergie, null=True)
 
     def __str__(self):
         return self.nom
@@ -65,15 +75,6 @@ class LieuRestauration(models.Model):
     def __str__(self):
         return self.nom 
 
-class Regime(models.Model):
-    vegetarien = models.NullBooleanField()
-    vegan = models.NullBooleanField()
-
-class Allergie(models.Model):
-    sGluten = models.NullBooleanField()
-    sLactose = models.NullBooleanField()
-
-
 class Menu(models.Model):
     lieuRestauration = models.ForeignKey(LieuRestauration)
     date = models.DateField(null=True)
@@ -82,8 +83,6 @@ class Menu(models.Model):
     fromage = models.ManyToManyField(Fromage, through='MenuFromage')
     dessert = models.ManyToManyField(Dessert, through='MenuDessert')
     boisson = models.ManyToManyField(Boisson, through='MenuBoisson')
-    regime = models.ForeignKey(Regime, null=True)
-    allergie = models.ForeignKey(Allergie, null=True)
 
     def __str__(self):
         return self.platPrincipal

@@ -97,11 +97,81 @@
     var tabDist = new Array(sizeLieux);
     var tabNote = new Array(sizeLieux);
     var arrayFav = new Array();
-    var i = 0;
+    var arrayMenu = new Array();
+    var arrayPP = new Array();
+    var arrayRe = new Array();
+    var arrayAl = new Array();
+    var arrVe = new Array(sizeLieux);
+    var arrVa = new Array(sizeLieux);
+    var arrSg = new Array(sizeLieux);
+    var arrSl = new Array(sizeLieux);
+    var i = 0, d = 0, cptVe=0, cptVa=0, cptSg=0, cptSl=0;
 </script>
 
   <ul> 
     {% for n in lieux %}
+
+      {% for m in menu %}
+        <script>
+          if({{ m.lieuRestauration_id }} == {{ n.id }}) arrayMenu.push({{ m.id }});
+        </script>
+      {% endfor %}
+
+      {% for mpp in menupp %}
+        <script>
+          for (var i = 0; i < arrayMenu.length; i++) {
+              if(arrayMenu[i] == {{ mpp.menu_id }}) arrayPP.push({{ mpp.platPrincipal_id }}); 
+          }
+        </script>
+      {% endfor %}
+
+      {% for plpr in pp %}
+        <script>
+          for (var k = 0; k < arrayPP.length; k++) {
+              if(arrayPP[k] == {{ plpr.id }}) {
+                arrayRe.push({{ plpr.regime_id }});
+                arrayAl.push({{ plpr.allergie_id }});
+              } 
+          }
+        </script>
+      {% endfor %}
+      
+      {% for a in al %}
+        <script>
+          for (var k = 0; k < arrayAl.length; k++) {
+              if(arrayAl[k] == {{ a.id }}) {
+                cptSg += {{ a.sGluten }};
+                cptSl += {{ a.sLactose }};
+              } 
+          }
+        </script>
+      {% endfor %}
+
+      {% for r in re %}
+        <script>
+          for (var k = 0; k < arrayRe.length; k++) {
+              if(arrayRe[k] == {{ r.id }}) {
+                cptVe += {{ r.vegetarien }};
+                cptVa += {{ r.vegan }};
+              } 
+          }
+        </script>
+      {% endfor %}
+      
+      <script>
+        if(cptSg>0) arrSg[d] = 1;
+        else arrSg = 0;
+        if(cptSl>0) arrSl[d] = 1;
+        else arrSl = 0;
+        if(cptVe>0) arrVe[d] = 1;
+        else arrVe = 0;
+        if(cptVa>0) arrVa[d] = 1;
+        else arrVa = 0;
+        arrayRe = []; arrayAl = [];
+        cptSl=0; cptVa=0; cptVe=0; cptSg=0;
+        d++;
+      </script>
+
       {% for f in fav %}
       <script>
         if(({{ f.lieu_id|safe }} == {{ n.id|safe }}) && ({{ f.user_id|safe }} == {{ user.id|safe }})) arrayFav.push("{{ n.id|safe }}");
@@ -156,7 +226,6 @@
         }
         return true;
       }
-
 </script> 
 
 {% endblock %}
