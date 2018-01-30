@@ -14,7 +14,7 @@ body {
     background-color: #fefee2;
 }
 
-h2 {
+h1 {
 	color: #FCA205;
 }
 
@@ -24,12 +24,15 @@ img.logo {
    margin-right: auto;
 }
 
-h1 {
+/*h1 {
    font-size: 50px;
    font-family: "Bahagia";
    color: #e67e30;
    text-align: center;
+<<<<<<< HEAD
 }
+=======
+}*/
 
 /*
   .switch {
