@@ -4,30 +4,46 @@
 
 {% block content %}
 
-<form action="/appPrincipale/getParam/{{ user.id }}/" method="post">
+<form class= "form-horizontal" action="/appPrincipale/getParam/{{ user.id }}/" method="post">
   {% csrf_token %}
-  <fieldset>
-    <legend>Régimes</legend>
-    <div>
-      <input type="checkbox" id="vegetarien" name="vegetarien" value="vegetarien" {% ifequal re.vegetarien True %} checked {% endifequal %} >
-      <label for="vegetarien">Végétarien</label>
+  <div class = "row">
+    <div class = "col-sm-12 col-md-3">
+      <fieldset>
+       <legend>Régimes</legend>
+        <div>
+          
+          <input type="checkbox" id="vegetarien" name="vegetarien" value="vegetarien" {% ifequal re.vegetarien True %} checked {% endifequal %} >
+          <label for="vegetarien">Végétarien</label>
+
+        </div>
+
+        <div>
+          <input type="checkbox" id="vegan" name="vegan" value="vegan" {% ifequal re.vegan True %} checked {% endifequal %} >
+          <label for="vegan">Vegan</label>
+        </div>
+      </fieldset>
+    
     </div>
-    <div>
-      <input type="checkbox" id="vegan" name="vegan" value="vegan" {% ifequal re.vegan True %} checked {% endifequal %} >
-      <label for="vegan">Vegan</label>
+
+    <div class = "col-sm-12 col-md-3">
+      <fieldset>
+        <legend>Allergies</legend>
+        <div>
+          <input type="checkbox" id="sGluten" name="sGluten" value="sGluten" {% ifequal al.sGluten True %} checked {% endifequal %} >
+          <label for="sGluten">Sans gluten</label>
+        </div>
+    
+        <div>
+          <input type="checkbox" id="sLactose" name="sLactose" value="sLactose" {% ifequal al.sLactose True %} checked {% endifequal %} >
+          <label for="sLactose">Sans lactose</label>
+        </div>
+      </fieldset>
+      
     </div>
-  </fieldset>
-  <fieldset>
-    <legend>Allergies</legend>
-    <div>
-      <input type="checkbox" id="sGluten" name="sGluten" value="sGluten" {% ifequal al.sGluten True %} checked {% endifequal %} >
-      <label for="sGluten">Sans gluten</label>
-    </div>
-    <div>
-      <input type="checkbox" id="sLactose" name="sLactose" value="sLactose" {% ifequal al.sLactose True %} checked {% endifequal %} >
-      <label for="sLactose">Sans lactose</label>
-    </div>
-  </fieldset>
+
+  </div>
+
+
   <fieldset>
     <legend>Localisation</legend>
     <div>
@@ -40,7 +56,7 @@
     </div>
   </fieldset>
   <div class="button">
-        <button type="submit">Valider les changements</button>
+        <button class= "btn btn-primaray btn-lg" type="submit">Valider les changements</button>
   </div>
 </form>
 
