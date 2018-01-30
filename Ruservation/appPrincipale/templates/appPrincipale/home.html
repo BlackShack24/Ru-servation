@@ -3,8 +3,6 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  Hi {{ user.username }}!
-  <a href="/appPrincipale/profil/{{ user.id }}/">profil</a><br>
 
   <h2>Lieux Restauration :</h2> 
   
@@ -32,7 +30,7 @@
       </div>
   </fieldset>
   <fieldset>
-      <legend>Régimes - Allergies</legend>
+      <legend>Régimes - Allergies (fonctionne pas)</legend>
       <div>
         <input type="checkbox" id="vege" name="vege" value="vege" checked >
         <label for="vege">Végétarien</label>

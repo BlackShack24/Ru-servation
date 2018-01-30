@@ -15,7 +15,12 @@
     </div> <br>
     
     <div class = "col-sm-12 col-md-4">
-      <span>Régime : Aucun</span><br>
+      <span>Régimes : <ul>{% ifequal re.vegetarien True %}<li> Végétarien </li>{% endifequal %} 
+                          {% ifequal re.vegan True %}<li> Vegan </li>{% endifequal %}
+                      </ul></span>
+      <span>Allergies : <ul>{% ifequal al.sGluten True %}<li> Gluten </li>{% endifequal %} 
+                          {% ifequal al.sLactose True %}<li> Lactose </li>{% endifequal %}
+                      </ul></span>
       <span>Ville : {{ userProfil.ville }} </span><br>
       <span>Lieu : {{ userProfil.lieuEtude }} </span><br>
     </div> <br>   

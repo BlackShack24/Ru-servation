@@ -37,7 +37,9 @@ def profil(request, user_id):
         userProfil.save()
     else:
         userProfil = UserProfile.objects.get(user_id=user_id)
-    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil})
+        regimes = Regime.objects.get(pk=userProfil.regime_id)
+        allergies = Allergie.objects.get(pk=userProfil.allergie_id)
+    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})
 
 def addFav(request, lieu_id, user_id):
     userP = UserProfile.objects.get(user_id=user_id)
