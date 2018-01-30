@@ -14,24 +14,26 @@
         <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois"/>
         <button type="button" onClick="DoSubmit()">Rechercher</button>
     </div>
-
-    <div>
-      <input type="checkbox" id="RU" name="RU" value="RU" checked >
-      <label for="RU">RU</label>
-      <input type="checkbox" id="BR" name="BR" value="BR" checked >
-      <label for="BR">Brasserie</label>
-      <input type="checkbox" id="CA" name="CA" value="CA" checked >
-      <label for="CA">Cafétéria</label>
-    </div>
-    <div>
-      <input type="checkbox" id="FO" name="FO" value="FO" checked >
-      <label for="FO">Foodtruck</label>
-      <input type="checkbox" id="SA" name="SA" value="SA" checked >
-      <label for="SA">Salle administrative</label>
-      <input type="checkbox" id="SW" name="SW" value="SW" checked >
-      <label for="SW">Sandwicherie</label>
-    </div>
-  </form>
+  <fieldset>
+      <legend>Type de lieu de restauration</legend>
+      <div>
+        <input type="checkbox" id="RU" name="RU" value="RU" checked >
+        <label for="RU">RU</label>
+        <input type="checkbox" id="BR" name="BR" value="BR" checked >
+        <label for="BR">Brasserie</label>
+        <input type="checkbox" id="CA" name="CA" value="CA" checked >
+        <label for="CA">Cafétéria</label>
+      </div>
+      <div>
+        <input type="checkbox" id="FO" name="FO" value="FO" checked >
+        <label for="FO">Foodtruck</label>
+        <input type="checkbox" id="SA" name="SA" value="SA" checked >
+        <label for="SA">Salle administrative</label>
+        <input type="checkbox" id="SW" name="SW" value="SW" checked >
+        <label for="SW">Sandwicherie</label>
+      </div>
+    </form>
+  </fieldset>
 
 
 <!-- <label class="switch">
@@ -59,10 +61,6 @@
      
      <span id="{{ n.id }}"><li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li></span>
 
-<script type="text/javascript">
-  document.getElementById("hey").value = tabType[2];
-</script>
-
     {% endfor %}
   </ul> 
 
@@ -70,11 +68,12 @@
       function DoSubmit(){
         document.getElementById("hey").value = tabType[2];
         for (var j = 0; j < sizeLieux; j++) {
-          if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1) {
+          if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1 
+            || !(document.getElementById(tabType[j]).checked)) {
             document.getElementById(tabId[j]).style.display = "none";
           }
           else {
-            if(document.getElementById(tabType[j]).checked == true)  {
+            if(document.getElementById(tabType[j]).checked)  {
               document.getElementById(tabId[j]).style.display = "block";
             }
           }
