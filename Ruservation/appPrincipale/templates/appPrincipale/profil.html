@@ -1,4 +1,4 @@
-{% extends 'appPrincipale/base.html' %}
+{% extends 'appPrincipale/baseComplete.html' %}
 
 {% block title %}Profil{% endblock %}
 
@@ -23,23 +23,23 @@
 
 
   <div>
-     <input type="button" value="Historique (fonctionne pas)">
+     <input class= "btn btn-primaray btn-lg" type="button" value="Historique (fonctionne pas)">
   </div> <br>
   <div>
     <form action="/appPrincipale/favoris/{{ user.id }}/" method="get">
-         <input type="submit" value="Favoris"/>
+         <input class= "btn btn-primaray btn-lg" type="submit" value="Favoris"/>
     </form>
   </div> <br>
   
   <div class = "row">
     <div class = "col-sm-2">
       <form action="{% url 'login' %}" method="get">
-         <input type="submit" value="Déconnexion"/>
+         <input class= "btn btn-primaray btn-lg" type="submit" value="Déconnexion"/>
      </form>
     </div> 
     <div class = "col-sm-2">
       <form action="/appPrincipale/parametres/{{ user.id }}/" method="get">
-         <input type="submit" value="Paramètres"/>
+         <input class= "btn btn-primaray btn-lg" type="submit" value="Paramètres"/>
       </form>
     </div>
 
