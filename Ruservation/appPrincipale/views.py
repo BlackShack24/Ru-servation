@@ -77,22 +77,19 @@ def parametres(request, user_id):
 def get_Param(request, user_id):
     form = ParamForm(request.POST)
     if form.is_valid():
-        userP = UserProfile.objects.get(user_id=user_id)
-        al = Allergie.objects.get(pk=userP.allergie_id)
-        re = Regime.objects.get(pk=userP.regime_id)
-
-        userP.ville = form.cleaned_data['ville']
-        userP.lieuEtude = form.cleaned_data['etab']
+        userProfil = UserProfile.objects.get(user_id=user_id)
+        al = Allergie.objects.get(pk=userProfil.allergie_id)
+        re = Regime.objects.get(pk=userProfil.regime_id)
+        userProfil.ville = form.cleaned_data['ville']
+        userProfil.lieuEtude = form.cleaned_data['etab']
         al.sGluten = form.cleaned_data['sGluten']
         al.sLactose = form.cleaned_data['sLactose']
         re.vegetarien = form.cleaned_data['vegetarien']
         re.vegan = form.cleaned_data['vegan']
-        
-        userP.save()
+        userProfil.save()
         al.save()
         re.save()
-
-    return render(request, 'appPrincipale/parametres.html', {'userP': userP, 're' : re, 'al' : al})
+    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : re, 'al' : al})
 
 def geoLoc(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
