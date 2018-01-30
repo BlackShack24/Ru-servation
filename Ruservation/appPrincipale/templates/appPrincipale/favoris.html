@@ -4,10 +4,16 @@
 
 {% block content %}
 
-  <ul> 
-    {% for n in lieux %}
-        <li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a>  <a href="/appPrincipale/addFav/{{ n.id }}/{{ userP.user_id }}/">[X]</a></li>
-    {% endfor %} 
-  </ul> 
+
+<div class="row">
+	<div class="col-8">
+		<ul> 
+    		{% for n in lieux %} 
+        		<li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li>
+    		{% endfor %} 
+  		</ul> 
+	</div>	
+</div>
+
 
 {% endblock %}
