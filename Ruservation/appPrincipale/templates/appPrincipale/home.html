@@ -61,12 +61,22 @@
         <label for="4star">Plus de 4 étoiles</label>
       </div>
   </fieldset>
+    <fieldset>
+      <legend>Favoris</legend>
+      <div>
+        <input type="radio" id="ind3" name="fav" value="ind3" checked >
+        <label for="ind3">Indifférent</label>
+        <input type="radio" id="favo" name="fav" value="favo"  >
+        <label for="favo">Seulement les favoris</label>
+      </div>
+  </fieldset>
   </form>
 <!-- <label class="switch">
   <input type="checkbox">
   <span class="slider round"></span>
 </label> -->
 
+<span id="hey"></span>
 
 <script>
     var sizeLieux = "{{ lieux.count|safe }}";
@@ -75,11 +85,17 @@
     var tabType = new Array(sizeLieux);
     var tabDist = new Array(sizeLieux);
     var tabNote = new Array(sizeLieux);
-    var i = 0; 
+    var arrayFav = new Array();
+    var i = 0;
 </script>
 
   <ul> 
     {% for n in lieux %}
+      {% for f in fav %}
+      <script>
+        if(({{ f.lieu_id|safe }} == {{ n.id|safe }}) && ({{ f.user_id|safe }} == {{ user.id|safe }})) arrayFav.push("{{ n.id|safe }}");
+      </script>
+      {% endfor %}
      <script>
       tabId[i] = "{{ n.id|safe }}";
       tabNom[i] = "{{ n.nom|safe }}";
@@ -100,7 +116,8 @@
           if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1 
             || !(document.getElementById(tabType[j]).checked)
             || !(fdist(tabDist[j]))
-            || !(fnote(tabNote[j]))) {
+            || !(fnote(tabNote[j]))
+            || !(ffavoris(tabId[j]))) {
             document.getElementById(tabId[j]).style.display = "none";
           }
           else document.getElementById(tabId[j]).style.display = "block";
@@ -121,6 +138,12 @@
         else if(document.getElementById("3star").checked) return (note>=3);
         else if(document.getElementById("4star").checked) return (note>=4);
         return false;
+      }
+      function ffavoris(id) {
+        if(!(document.getElementById("ind3").checked)) {
+          return arrayFav.includes(id);
+        }
+        return true;
       }
 
 </script> 
