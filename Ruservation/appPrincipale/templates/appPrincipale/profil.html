@@ -4,36 +4,46 @@
 
 {% block content %}
 
-  <div>
+  <div class = "row">
+    <div class = "col-sm-12 col-md-4">
       <span> {{ user.first_name }} </span><br>
       <span> {{ user.last_name }} </span>
-  </div><br><br>
-  <div>
+    </div> <br>
+    
+    <div class = "col-sm-12 col-md-4">
       <span>Solde IZLY :  {{ userProfil.solde }} €</span>
-  </div><br><br>
-  <div>
+    </div> <br>
+    
+    <div class = "col-sm-12 col-md-4">
       <span>Régime : Aucun</span><br>
       <span>Ville : {{ userProfil.ville }} </span><br>
       <span>Lieu : {{ userProfil.lieuEtude }} </span><br>
-  </div><br><br>
+    </div> <br>   
+  </div>
+
+
   <div>
      <input type="button" value="Historique (fonctionne pas)">
-  </div><br>
+  </div> <br>
   <div>
     <form action="/appPrincipale/favoris/{{ user.id }}/" method="get">
          <input type="submit" value="Favoris"/>
     </form>
-  </div><br>
-  <div>
-     <form action="{% url 'login' %}" method="get">
+  </div> <br>
+  
+  <div class = "row">
+    <div class = "col-sm-2">
+      <form action="{% url 'login' %}" method="get">
          <input type="submit" value="Déconnexion"/>
      </form>
-  </div><br>
-  <div>
-    <form action="/appPrincipale/parametres/{{ user.id }}/" method="get">
+    </div> 
+    <div class = "col-sm-2">
+      <form action="/appPrincipale/parametres/{{ user.id }}/" method="get">
          <input type="submit" value="Paramètres"/>
-    </form>
-  </div><br>
+      </form>
+    </div>
+
+  </div>
 
 
 {% endblock %}
