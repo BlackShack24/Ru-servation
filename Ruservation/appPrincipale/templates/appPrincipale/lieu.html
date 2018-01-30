@@ -1,61 +1,54 @@
 {% extends 'appPrincipale/baseComplete.html' %}
-
 {% block title %}Lieu restauration{% endblock %}
-
 {% block content %}
-
+<div class="container">
   <div class = "row">
-    <div class = "col-sm-3 col-md-1">
-        <span> {{ lieu.nom }} </span><br><br>
-        <span> {{ lieu.adresse }} </span><br><br>
+    <div class = "col-sm-12">
+      <span> {{ lieu.nom }} </span><br><br>
+      <span> {{ lieu.adresse }} </span><br><br>
     </div>
-
-        <div class = "col-sm-3 col-md-2">
+    <div class = "col-sm-12">
       <form action="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}" method="get">
         <input  class= "btn btn-primaray" type="submit" value="Ajouter au favoris"/>
       </form>
     </div>
-
-    <div class = "col-sm-3 col-md-1">
-        <form name="geoLoc" action="/appPrincipale/geoLoc/{{ lieu.id }}/" method="post">
-           {% csrf_token %}
-           <input class= "btn btn-primaray" type="submit" value="Y aller">
-        </form>
+    <div class = "col-sm-12">
+      <form name="geoLoc" action="/appPrincipale/geoLoc/{{ lieu.id }}/" method="post">
+        {% csrf_token %}
+        <input class= "btn btn-primaray" type="submit" value="Y aller">
+      </form>
     </div>
-
-
   </div>
-<!--   <a href="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}/"> Ajouter au favoris</a><br>
- -->  
-
+</div>
+  <!--   <a href="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}/"> Ajouter au favoris</a><br>
+-->
+<div class = "container">
   <div class = "row">
-    <div class = "col-sm-3 col-md-3">
+  <div class = "col-sm-4">
       <span>Menu du prochain repas [ {{ menu.date }} ] :</span><br>
-        <span>  
-          <ul> 
-               {% for n in menupp %}
-                  {% for m in plats %}
-                     {% if n.platPrincipal_id == m.id %}
-                         <li>{{ m.nom }}</li>
-                     {% endif %}
-                  {% endfor %}     
-               {% endfor %} 
-            </ul> 
-        </span>
+      <span>
+        <ul>
+          {% for n in menupp %}
+          {% for m in plats %}
+          {% if n.platPrincipal_id == m.id %}
+          <li>{{ m.nom }}</li>
+          {% endif %}
+          {% endfor %}
+          {% endfor %}
+        </ul>
+      </span>
     </div>
-
-    <div class = "col-sm-3 col-md-3">
+    <div class = "col-sm-3">
       <span>Temps d'attente : {{ lieu.tempsAttente }}</span>
     </div>
   </div>
-
+</div>
+<div>
   <div>
-     <div>
-        <input class= "btn btn-primaray" type="button" value="Réserver pour ce repas (fonctionne pas)"><br>
-     </div><br>
-     <div>
-        <input class= "btn btn-primaray" type="button" value="Menus suivants (fonctionne pas)"><br>
-     </div>
+    <input class= "btn btn-primaray" type="button" value="Réserver pour ce repas (fonctionne pas)"><br>
+  </div><br>
+  <div>
+    <input class= "btn btn-primaray" type="button" value="Menus suivants (fonctionne pas)"><br>
   </div>
-
+</div>
 {% endblock %}

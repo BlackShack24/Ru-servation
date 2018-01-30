@@ -1,54 +1,52 @@
 {% extends 'appPrincipale/baseComplete.html' %}
-
 {% block title %}Profil{% endblock %}
-
 {% block content %}
-
-  <div class = "row">
-    <div class = "col-sm-12 col-md-4">
-      <span> {{ user.first_name }} </span><br>
-      <span> {{ user.last_name }} </span>
-    </div> <br>
-    
-    <div class = "col-sm-12 col-md-4">
-      <span>Solde IZLY :  {{ userProfil.solde }} €</span>
-    </div> <br>
-    
-    <div class = "col-sm-12 col-md-4">
-      <span>Régimes : <ul>{% ifequal re.vegetarien True %}<li> Végétarien </li>{% endifequal %} 
-                          {% ifequal re.vegan True %}<li> Vegan </li>{% endifequal %}
-                      </ul></span>
-      <span>Allergies : <ul>{% ifequal al.sGluten True %}<li> Gluten </li>{% endifequal %} 
-                          {% ifequal al.sLactose True %}<li> Lactose </li>{% endifequal %}
-                      </ul></span>
-      <span>Ville : {{ userProfil.ville }} </span><br>
-      <span>Lieu : {{ userProfil.lieuEtude }} </span><br>
-    </div> <br>   
-  </div>
-
-
-  <div>
-     <input class= "btn btn-primaray btn-lg" type="button" value="Historique (fonctionne pas)">
-  </div> <br>
-  <div>
-    <form action="/appPrincipale/favoris/{{ user.id }}/" method="get">
-         <input class= "btn btn-primaray btn-lg" type="submit" value="Favoris"/>
-    </form>
-  </div> <br>
-  
-  <div class = "row">
-    <div class = "col-sm-2">
-      <form action="{% url 'login' %}" method="get">
-         <input class= "btn btn-primaray btn-lg" type="submit" value="Déconnexion"/>
-     </form>
-    </div> 
-    <div class = "col-sm-2">
-      <form action="/appPrincipale/parametres/{{ user.id }}/" method="get">
-         <input class= "btn btn-primaray btn-lg" type="submit" value="Paramètres"/>
-      </form>
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-2">
+        <span> {{ user.first_name }} </span><br>
+        <span> {{ user.last_name }} </span>
+      </div> <br>
+      <div class = "col">
+        <span>Solde IZLY :  {{ userProfil.solde }} €</span>
+      </div> <br>
+      <div class = "col">
+        <span>Ville : {{ userProfil.ville }} </span><br>
+        <span>Lieu : {{ userProfil.lieuEtude }} </span><br>
+      </div> <br>
     </div>
-
+    <div class = "row">
+      <div class="col">
+        <span>Régimes : <ul>{% ifequal re.vegetarien True %}<li> Végétarien </li>{% endifequal %}
+        {% ifequal re.vegan True %}<li> Vegan </li>{% endifequal %}
+      </ul></span>
+      
+    </div>
+    <div class="col">
+      <span>Allergies : <ul>{% ifequal al.sGluten True %}<li> Gluten </li>{% endifequal %}
+      {% ifequal al.sLactose True %}<li> Lactose </li>{% endifequal %}
+    </ul></span>
   </div>
-
-
+</div>
+</div>
+<div>
+<input class= "btn btn-primaray btn-lg" type="button" value="Historique (fonctionne pas)">
+</div> <br>
+<div>
+<form action="/appPrincipale/favoris/{{ user.id }}/" method="get">
+  <input class= "btn btn-primaray btn-lg" type="submit" value="Favoris"/>
+</form>
+</div> <br>
+<div class = "row">
+<div class = "col-sm-2">
+  <form action="{% url 'login' %}" method="get">
+    <input class= "btn btn-primaray btn-lg" type="submit" value="Déconnexion"/>
+  </form>
+</div>
+<div class = "col-sm-2">
+  <form action="/appPrincipale/parametres/{{ user.id }}/" method="get">
+    <input class= "btn btn-primaray btn-lg" type="submit" value="Paramètres"/>
+  </form>
+</div>
+</div>
 {% endblock %}

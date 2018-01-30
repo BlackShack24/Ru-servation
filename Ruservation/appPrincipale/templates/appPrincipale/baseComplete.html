@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  {% load static %}
-
-  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
-  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/appPrincipale.css' %}">
-  <title></title>
-</head>
-<body>
-  <header>
-    <div class = "row">
-      <div class = "col-sm-12 col-md-1">
-        <a class = "btn btn-primary btn-lg" href="/appPrincipale/profil/{{ user.id }}/" role = "button">Profil</a>
+  <head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/appPrincipale.css' %}">
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <div class = "container">
+        <div class = "row">
+          <div class = "col-sm-12 col-md-3">
+            <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
+          </div> <br>
+          <div class = "col col-md-3">
+            <a class = "btn btn-primary" href="/appPrincipale/profil/{{ user.id }}/" role = "button">Profil</a>
+          </div>
+          <div class = "col col-md-3">
+            <p id="PageCourante">{% block title %}{% endblock %}</p>
+          </div>
+          <div class = "col col-md-3">
+            <a class="btn btn-primary" href="/appPrincipale/home" role = "button">Home</a>
+          </div>
+        </div><br>
       </div>
-      <div class = "col-sm-12 col-md-2">
-        <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">  
-      </div>
-      <div class = "col-sm-12 col-md-1">
-        <a class="btn btn-primary btn-lg" href="/appPrincipale/home" role = "button">Home</a>
-      </div>
-    </div><br>
-
-  </header>
- 
-  <hr>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
-</body>
+    </header>
+    
+    <hr>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  </body>
 </html>
