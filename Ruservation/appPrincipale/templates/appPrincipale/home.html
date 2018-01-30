@@ -1,4 +1,4 @@
-{% extends 'appPrincipale/base.html' %}
+{% extends 'appPrincipale/baseComplete.html' %}
 
 {% block title %}Home{% endblock %}
 
@@ -12,7 +12,7 @@
     {% csrf_token %}
     <div>
         <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois"/>
-        <button type="button" onClick="DoSubmit()">Rechercher</button>
+        <button class= "btn btn-primaray btn-lg" type="button" onClick="DoSubmit()">Rechercher</button>
     </div>
   <fieldset>
       <legend>Type de lieu de restauration</legend>
@@ -66,6 +66,10 @@
   <input type="checkbox">
   <span class="slider round"></span>
 </label> -->
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9688d78e7b3fb971047290b8e34107ccdf069297
 
 <script>
     var sizeLieux = "{{ lieux.count|safe }}";
