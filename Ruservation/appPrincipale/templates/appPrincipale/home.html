@@ -23,8 +23,6 @@
         <label for="BR">Brasserie</label>
         <input type="checkbox" id="CA" name="CA" value="CA" checked >
         <label for="CA">Cafétéria</label>
-      </div>
-      <div>
         <input type="checkbox" id="FO" name="FO" value="FO" checked >
         <label for="FO">Foodtruck</label>
         <input type="checkbox" id="SA" name="SA" value="SA" checked >
@@ -32,10 +30,38 @@
         <input type="checkbox" id="SW" name="SW" value="SW" checked >
         <label for="SW">Sandwicherie</label>
       </div>
-    </form>
   </fieldset>
-
-
+  <fieldset>
+      <legend>Distance</legend>
+      <div>
+        <input type="radio" id="ind1" name="dist" value="ind1" checked >
+        <label for="ind1">Indifférent</label>
+        <input type="radio" id="1km" name="dist" value="1km" >
+        <label for="1km">Moins d'1 km</label>
+        <input type="radio" id="2km" name="dist" value="2km" >
+        <label for="2km">Moins de 2 km</label>
+        <input type="radio" id="3km" name="dist" value="3km"  >
+        <label for="3km">Moins de 3 km</label>
+        <input type="radio" id="4km" name="dist" value="4km"  >
+        <label for="4km">Moins de 4 km</label>
+      </div>
+  </fieldset>
+  <fieldset>
+      <legend>Note</legend>
+      <div>
+        <input type="radio" id="ind2" name="note" value="ind2" checked >
+        <label for="ind2">Indifférent</label>
+        <input type="radio" id="1star" name="note" value="1star"  >
+        <label for="1star">Plus d'1 étoile</label>
+        <input type="radio" id="2star" name="note" value="2star"  >
+        <label for="2star">Plus de 2 étoiles</label>
+        <input type="radio" id="3star" name="note" value="3star"  >
+        <label for="3star">Plus de 3 étoiles</label>
+        <input type="radio" id="4star" name="note" value="4star"  >
+        <label for="4star">Plus de 4 étoiles</label>
+      </div>
+  </fieldset>
+  </form>
 <!-- <label class="switch">
   <input type="checkbox">
   <span class="slider round"></span>
@@ -47,6 +73,8 @@
     var tabId = new Array(sizeLieux);
     var tabNom = new Array(sizeLieux);
     var tabType = new Array(sizeLieux);
+    var tabDist = new Array(sizeLieux);
+    var tabNote = new Array(sizeLieux);
     var i = 0;
 </script>
 
@@ -56,10 +84,12 @@
       tabId[i] = "{{ n.id|safe }}";
       tabNom[i] = "{{ n.nom|safe }}";
       tabType[i] = "{{ n.typeR|safe }}";
+      tabDist[i] = "{{ n.distance|safe }}";
+      tabNote[i] = "{{ n.note|safe }}";
       i++;
      </script> 
      
-     <span id="{{ n.id }}"><li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a></li></span>
+     <span id="{{ n.id }}"><li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a>(Distance : {{ n.distance }} km - Note {{ n.note }}/5)</li></span>
 
     {% endfor %}
   </ul> 
@@ -69,7 +99,9 @@
         document.getElementById("hey").value = tabType[2];
         for (var j = 0; j < sizeLieux; j++) {
           if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1 
-            || !(document.getElementById(tabType[j]).checked)) {
+            || !(document.getElementById(tabType[j]).checked)
+            || !(fdist(tabDist[j]))
+            || !(fnote(tabNote[j]))) {
             document.getElementById(tabId[j]).style.display = "none";
           }
           else {
@@ -80,6 +112,23 @@
           
         }
       }
+      function fdist(dist) {
+        if(document.getElementById("ind1").checked) return true;
+        else if(document.getElementById("1km").checked) return (dist<=1);
+        else if(document.getElementById("2km").checked) return (dist<=2);
+        else if(document.getElementById("3km").checked) return (dist<=3);
+        else if(document.getElementById("4km").checked) return (dist<=4);
+        return false;
+      }
+      function fnote(note) {
+        if(document.getElementById("ind2").checked) return true;
+        else if(document.getElementById("1star").checked) return (note>=1);
+        else if(document.getElementById("2star").checked) return (note>=2);
+        else if(document.getElementById("3star").checked) return (note>=3);
+        else if(document.getElementById("4star").checked) return (note>=4);
+        return false;
+      }
+
 </script> 
 
 {% endblock %}
