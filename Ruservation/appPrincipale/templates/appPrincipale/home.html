@@ -30,15 +30,15 @@
       </div>
   </fieldset>
   <fieldset>
-      <legend>Régimes - Allergies (fonctionne pas)</legend>
+      <legend>Régimes - Allergies</legend>
       <div>
-        <input type="checkbox" id="vege" name="vege" value="vege" checked >
+        <input type="checkbox" id="vege" name="vege" value="vege" >
         <label for="vege">Végétarien</label>
-        <input type="checkbox" id="vega" name="vega" value="vega" checked >
+        <input type="checkbox" id="vega" name="vega" value="vega" >
         <label for="vega">Vegan</label>
-        <input type="checkbox" id="sglu" name="sglu" value="sglu" checked >
+        <input type="checkbox" id="sglu" name="sglu" value="sglu" >
         <label for="sglu">Sans gluten</label>
-        <input type="checkbox" id="slac" name="slac" value="slac" checked >
+        <input type="checkbox" id="slac" name="slac" value="slac" >
         <label for="slac">Sans lactose</label>
       </div>
   </fieldset>
@@ -82,12 +82,11 @@
       </div>
   </fieldset>
   </form>
+  {{ user.id }}
 <!-- <label class="switch">
   <input type="checkbox">
   <span class="slider round"></span>
 </label> -->
-
-<span id="hey"></span>
 
 <script>
     var sizeLieux = "{{ lieux.count|safe }}";
@@ -119,8 +118,8 @@
 
       {% for mpp in menupp %}
         <script>
-          for (var i = 0; i < arrayMenu.length; i++) {
-              if(arrayMenu[i] == {{ mpp.menu_id }}) arrayPP.push({{ mpp.platPrincipal_id }}); 
+          for (var r = 0; r < arrayMenu.length; r++) {
+              if(arrayMenu[r] == {{ mpp.menu_id }}) arrayPP.push({{ mpp.platPrincipal_id }}); 
           }
         </script>
       {% endfor %}
@@ -140,8 +139,8 @@
         <script>
           for (var k = 0; k < arrayAl.length; k++) {
               if(arrayAl[k] == {{ a.id }}) {
-                cptSg += {{ a.sGluten }};
-                cptSl += {{ a.sLactose }};
+                if({{ a.sGluten|yesno:"true,false" }}) cptSg++;
+                if({{ a.sLactose|yesno:"true,false" }}) cptSl++;
               } 
           }
         </script>
@@ -151,8 +150,8 @@
         <script>
           for (var k = 0; k < arrayRe.length; k++) {
               if(arrayRe[k] == {{ r.id }}) {
-                cptVe += {{ r.vegetarien }};
-                cptVa += {{ r.vegan }};
+                if({{ r.vegetarien|yesno:"true,false" }}) cptVe++;
+                if({{ r.vegan|yesno:"true,false" }}) cptVa++;
               } 
           }
         </script>
@@ -160,14 +159,14 @@
       
       <script>
         if(cptSg>0) arrSg[d] = 1;
-        else arrSg = 0;
+        else arrSg[d] = 0;
         if(cptSl>0) arrSl[d] = 1;
-        else arrSl = 0;
+        else arrSl[d] = 0;
         if(cptVe>0) arrVe[d] = 1;
-        else arrVe = 0;
+        else arrVe[d] = 0;
         if(cptVa>0) arrVa[d] = 1;
-        else arrVa = 0;
-        arrayRe = []; arrayAl = [];
+        else arrVa[d] = 0;
+        arrayRe = []; arrayAl = []; arrayMenu = []; arrayPP = [];
         cptSl=0; cptVa=0; cptVe=0; cptSg=0;
         d++;
       </script>
@@ -192,17 +191,20 @@
   </ul> 
 
 <script>
+
       function DoSubmit(){
         for (var j = 0; j < sizeLieux; j++) {
           if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1 
             || !(document.getElementById(tabType[j]).checked)
             || !(fdist(tabDist[j]))
             || !(fnote(tabNote[j]))
-            || !(ffavoris(tabId[j]))) {
+            || !(ffavoris(tabId[j]))
+            || !(falleregi(j))) {
             document.getElementById(tabId[j]).style.display = "none";
           }
           else document.getElementById(tabId[j]).style.display = "block";
         }
+        
       }
       function fdist(dist) {
         if(document.getElementById("ind1").checked) return true;
@@ -226,6 +228,21 @@
         }
         return true;
       }
+      function falleregi(idar) {
+        if(document.getElementById("vege").checked) {
+          if(arrVe[idar]==0) return false;
+        }
+        if(document.getElementById("vega").checked) {
+          if(arrVa[idar]==0) return false;
+        }
+        if(document.getElementById("sglu").checked) {
+          if(arrSg[idar]==0) return false;
+        }
+        if(document.getElementById("slac").checked) {
+          if(arrSl[idar]==0) return false;
+        }
+        return true;
+      }      
 </script> 
 
 {% endblock %}

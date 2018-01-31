@@ -20,6 +20,7 @@ def signup(request):
     return render(request, 'appPrincipale/signup.html', {'form': form})
 
 def home(request):
+    userProfil = UserProfile.objects.all()
     lieux = LieuRestauration.objects.all()
     fav = Favoris.objects.all()
     menu = Menu.objects.all()
