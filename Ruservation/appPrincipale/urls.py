@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^parametres/(?P<user_id>[0-9]+)/$', views.parametres, name='parametres'),
     url(r'^getParam/(?P<user_id>[0-9]+)/$', views.get_Param, name='getParam'),
     url(r'^geoLoc/(?P<lieu_id>[0-9]+)/$', views.geoLoc, name='geoLoc'),
+    url(r'^reservation/(?P<lieu_id>[0-9]+)/(?P<user_id>[0-9]+)/$', views.reservation, name='reservation'),
+    url(r'^profil/(?P<lieu_id>[0-9]+)/(?P<user_id>[0-9]+)/(?P<platP_id>[0-9]+)/$', views.resDone, name='resDone'),
+    url(r'^historique/(?P<user_id>[0-9]+)/$', views.historique, name='historique'),
 ]

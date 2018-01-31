@@ -124,8 +124,7 @@ class Reservation(models.Model):
     prix = models.FloatField()
     user = models.ForeignKey(UserProfile)
     date = models.DateTimeField()
-    menu = models.ForeignKey(Menu)
-    pain = models.NullBooleanField()
+    lieu = models.ForeignKey(LieuRestauration, null=True)
 
     def __str__(self):
         return self.date

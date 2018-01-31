@@ -45,7 +45,9 @@
 </div>
 <div>
   <div>
-    <input class= "btn btn-primaray" type="button" value="Réserver pour ce repas (fonctionne pas)"><br>
+    <form action="/appPrincipale/reservation/{{ lieu.id }}/{{ user.id }}" method="get">
+        <input  class= "btn btn-primaray" type="submit" value="Réserver pour ce repas"/>
+    </form>
   </div><br>
   <div>
     <input class= "btn btn-primaray" type="button" value="Menus suivants (fonctionne pas)"><br>

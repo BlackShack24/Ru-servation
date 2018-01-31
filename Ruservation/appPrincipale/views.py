@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from Ruservation.forms import SignUpForm, ParamForm
-from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal, UserProfile, Favoris, Regime, Allergie
+from appPrincipale.models import LieuRestauration, Menu, MenuPlatPrincipal, PlatPrincipal, UserProfile, Favoris, Regime, Allergie, Reservation
+from datetime import datetime
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -101,3 +102,28 @@ def geoLoc(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
 
     return render(request, 'appPrincipale/geoLoc.html', {'lieu': lieu})
+
+def reservation(request, lieu_id, user_id):
+    lieu = LieuRestauration.objects.get(pk=lieu_id)
+    userP = UserProfile.objects.get(user_id=user_id)
+    menu = get_object_or_404(Menu, lieuRestauration_id = lieu.id)
+    menupp = MenuPlatPrincipal.objects.filter(menu_id = menu.id)
+    platPrincipal = PlatPrincipal.objects.all()
+
+    return render(request, 'appPrincipale/reservation.html', {'lieu': lieu, 'userP' : userP, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp})
+
+def historique(request, user_id):
+    res = Reservation.objects.filter(user_id=user_id)
+    lieu = LieuRestauration.objects.all()
+
+    return render(request, 'appPrincipale/historique.html', {'res': res, 'lieu' : lieu})
+
+def resDone(request, lieu_id, user_id, platP_id):
+    date = datetime.now()
+    plat = PlatPrincipal.objects.get(pk=platP_id)
+    res = Reservation(prix = plat.prix, date = date, user_id=user_id, lieu_id = lieu_id)
+    res.save()
+    userProfil = UserProfile.objects.get(user_id=user_id)
+    regimes = Regime.objects.get(pk=userProfil.regime_id)
+    allergies = Allergie.objects.get(pk=userProfil.allergie_id)
+    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})

@@ -1,0 +1,21 @@
+{% extends 'appPrincipale/baseComplete.html' %}
+
+{% block title %}Historique{% endblock %}
+
+{% block content %}
+
+<div>
+  <ul>
+    {% for n in res %}
+      {% for m in lieu %}
+        {% if n.lieu_id == m.id %}
+          <li>
+            {{ n.date }} - {{ m.nom }}  - {{ n.prix }} €
+          </li>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

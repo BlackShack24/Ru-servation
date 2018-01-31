@@ -35,7 +35,9 @@
     </div>
   </div>
   <div>
-    <input class= "btn btn-primaray btn-lg" type="button" value="Historique (fonctionne pas)">
+    <form action="/appPrincipale/historique/{{ user.id }}/" method="get">
+      <input class= "btn btn-primaray btn-lg" type="submit" value="Historique">
+    </form>
   </div> <br>
   <div>
     <form action="/appPrincipale/favoris/{{ user.id }}/" method="get">

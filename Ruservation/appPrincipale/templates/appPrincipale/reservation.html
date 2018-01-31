@@ -1,0 +1,131 @@
+{% extends 'appPrincipale/baseComplete.html' %}
+
+{% block title %}Réservation{% endblock %}
+
+{% block content %}
+
+<script>
+  var verif = false;
+  var idPP = new Array();
+  var prixPP;
+  var urlHist;
+</script>
+
+<div class="container">
+  <div class = "row">
+    <div class = "col-sm-12">
+      <span> {{ lieu.nom }} </span><br><br>
+      <span> {{ lieu.adresse }} </span><br><br>
+    </div>
+  </div>
+</div>
+
+<div class = "container">
+    <form action="/" method="get" name="reserver" id="reserver" onsubmit="DoSubmit()" >
+      <span>Menu du [ {{ menu.date }} ] :</span><br>
+      <div class = "col-sm-4">
+        <fieldset>
+          <legend>Entrée</legend>
+          <ul>
+            <li>
+              <input type="radio" id="fro" name="en" value="fro" >
+              <label for="fro">Fromage</label>
+            </li>
+            <li>
+              <input type="radio" id="car" name="en" value="car" >
+              <label for="car">Carrotes rapés</label>
+            </li>
+            <li>
+              <input type="radio" id="bet" name="en" value="bet" >
+              <label for="bet">Betteraves</label>
+            </li>                        
+        </ul>
+        </fieldset>
+      </div>
+      <div class = "col-sm-4">
+        <fieldset>
+          <legend>Plat principal</legend>
+        <ul>
+          {% for n in menupp %}
+            {% for m in plats %}
+              {% if n.platPrincipal_id == m.id %}
+                <script>
+                  if(!verif) {
+                    var firstId = "{{ m.id }}";
+                    prixPP = {{ m.prix }};
+                    verif = true;
+                  }
+                  idPP.push("{{ m.id }}");
+                </script>
+                <li>
+                    <input type="radio" id="{{ m.id }}" name="pp" value="{{ m.id }}">
+                    <label for="{{ m.id }}">{{ m.nom }}</label>
+                </li>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+        </fieldset>
+      </div>
+      <div class = "col-sm-4">
+        <fieldset>
+          <legend>Dessert</legend>
+          <ul>
+            <li>
+              <input type="radio" id="pom" name="de" value="pom" >
+              <label for="pom">Pomme</label>
+            </li>
+            <li>
+              <input type="radio" id="yao" name="de" value="yao" >
+              <label for="yao">Yaourt</label>
+            </li>
+            <li>
+              <input type="radio" id="don" name="de" value="don" >
+              <label for="don">Donut</label>
+            </li>                        
+        </ul>
+        </fieldset>
+      </div>
+      <div class = "col-sm-4">
+        <fieldset>
+          <legend>Pain</legend>
+          <ul>
+            <li>
+              <input type="checkbox" id="pain" name="pain" value="pain" >
+              <label for="pain">Pain</label>
+            </li>
+          </ul>
+        </fieldset>
+      </div>
+      <input  class= "btn btn-primaray" type="submit" value="Réserver"/>
+      <span>Prix : <span id="prix"></span> €</span>
+      
+    </form>
+</div>
+
+<script>
+  window.onload = function() {
+    document.getElementById(firstId).checked = true;
+    document.getElementById("prix").innerHTML = prixPP;
+    DoSubmit();
+  };
+  function DoSubmit(){
+    for(var k = 0; k < idPP.length; k++) {
+      if(document.getElementById(idPP[k]).checked) {
+        document.reserver.action = "/appPrincipale/profil/{{ lieu.id }}/{{ user.id }}/"+idPP[k];
+      }
+    }
+  }
+/*  var rad = document.reserver.pp;
+  var prev = null;
+  for(var i = 0; i < rad.length; i++) {
+    rad[i].onclick = function() {
+        
+    };
+  }*/
+
+</script>
+
+
+
+{% endblock %}
