@@ -6,7 +6,28 @@
 
   <h2>Lieux Restauration :</h2> 
   
-  <form name="recherche" action="/appPrincipale/home/" method="post" onsubmit="DoSubmit();" >
+
+<script>
+    var sizeLieux = "{{ lieux.count|safe }}";
+    var tabId = new Array(sizeLieux);
+    var tabNom = new Array(sizeLieux);
+    var tabType = new Array(sizeLieux);
+    var tabDist = new Array(sizeLieux);
+    var tabNote = new Array(sizeLieux);
+    var arrayFav = new Array();
+    var arrayMenu = new Array();
+    var arrayPP = new Array();
+    var arrayRe = new Array();
+    var arrayAl = new Array();
+    var arrVe = new Array(sizeLieux);
+    var arrVa = new Array(sizeLieux);
+    var arrSg = new Array(sizeLieux);
+    var arrSl = new Array(sizeLieux);
+    var i = 0, d = 0, cptVe=0, cptVa=0, cptSg=0, cptSl=0;
+    var prChAl=0, prChRe=0, prChVe=0, prChVa=0, prChSg=0, prChSl=0;
+</script>
+
+  <form name="recherche" action="/appPrincipale/home/" method="post" >
     {% csrf_token %}
     <div>
         <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois"/>
@@ -82,30 +103,55 @@
       </div>
   </fieldset>
   </form>
-  {{ user.id }}
+
 <!-- <label class="switch">
   <input type="checkbox">
   <span class="slider round"></span>
 </label> -->
 
+
+<!-- Précheck des checkbox préférences -->      
+      {% for us in userProfil %}
+        <script>
+          if({{ us.user_id }} == {{ user.id }}) {
+            prChAl = {{ us.allergie_id }};
+            prChRe = {{ us.regime_id }};
+          }
+        </script>
+      {% endfor %}
+
+      {% for alle in al %}
+        <script>
+          if(prChAl == {{ alle.id }}) {
+            prChSl = "{{ alle.sLactose }}";
+            prChSg = "{{ alle.sGluten }}";
+          }
+        </script>
+      {% endfor %}
+
+      {% for regi in re %}
+        <script>
+          if(prChRe == {{ regi.id }}) {
+            prChVe = "{{ regi.vegetarien }}";
+            prChVa = "{{ regi.vegan }}";
+          }
+        </script>
+      {% endfor %}
+
 <script>
-    var sizeLieux = "{{ lieux.count|safe }}";
-    var tabId = new Array(sizeLieux);
-    var tabNom = new Array(sizeLieux);
-    var tabType = new Array(sizeLieux);
-    var tabDist = new Array(sizeLieux);
-    var tabNote = new Array(sizeLieux);
-    var arrayFav = new Array();
-    var arrayMenu = new Array();
-    var arrayPP = new Array();
-    var arrayRe = new Array();
-    var arrayAl = new Array();
-    var arrVe = new Array(sizeLieux);
-    var arrVa = new Array(sizeLieux);
-    var arrSg = new Array(sizeLieux);
-    var arrSl = new Array(sizeLieux);
-    var i = 0, d = 0, cptVe=0, cptVa=0, cptSg=0, cptSl=0;
+window.onload = function() {
+    if(prChSl.localeCompare("True")) document.getElementById("slac").checked = false;
+    else document.getElementById("slac").checked = true;
+    if(prChSg.localeCompare("True")) document.getElementById("sglu").checked = false;
+    else document.getElementById("sglu").checked = true;
+    if(prChVe.localeCompare("True")) document.getElementById("vege").checked = false;
+    else document.getElementById("vege").checked = true;
+    if(prChVa.localeCompare("True")) document.getElementById("vega").checked = false;
+    else document.getElementById("vega").checked = true;
+    DoSubmit();
+};
 </script>
+
 
   <ul> 
     {% for n in lieux %}
@@ -242,7 +288,7 @@
           if(arrSl[idar]==0) return false;
         }
         return true;
-      }      
+      }
 </script> 
 
 {% endblock %}

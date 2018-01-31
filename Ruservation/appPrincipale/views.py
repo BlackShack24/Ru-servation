@@ -28,7 +28,7 @@ def home(request):
     platPrincipal = PlatPrincipal.objects.all()
     re = Regime.objects.all()
     al = Allergie.objects.all()
-    return render(request, 'appPrincipale/home.html', {'lieux': lieux, 'fav' : fav, 'menu' : menu, 'menupp' : menupp, 'pp' : platPrincipal, 're' : re, 'al' : al})
+    return render(request, 'appPrincipale/home.html', {'lieux': lieux, 'fav' : fav, 'menu' : menu, 'menupp' : menupp, 'pp' : platPrincipal, 're' : re, 'al' : al, 'userProfil' : userProfil})
 
 def lieuR(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
