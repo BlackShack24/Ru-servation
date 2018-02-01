@@ -1,306 +1,311 @@
 {% extends 'appPrincipale/baseComplete.html' %}
-
 {% block title %}Home{% endblock %}
-
 {% block content %}
-
-  <h2>Lieux Restauration :</h2> 
+  <h2>Lieux Restauration :</h2>
   
-
-<script>
-    var sizeLieux = "{{ lieux.count|safe }}";
-    var tabId = new Array(sizeLieux);
-    var tabNom = new Array(sizeLieux);
-    var tabType = new Array(sizeLieux);
-    var tabDist = new Array(sizeLieux);
-    var tabNote = new Array(sizeLieux);
-    var arrayFav = new Array();
-    var arrayMenu = new Array();
-    var arrayPP = new Array();
-    var arrayRe = new Array();
-    var arrayAl = new Array();
-    var arrVe = new Array(sizeLieux);
-    var arrVa = new Array(sizeLieux);
-    var arrSg = new Array(sizeLieux);
-    var arrSl = new Array(sizeLieux);
-    var i = 0, d = 0, cptVe=0, cptVa=0, cptSg=0, cptSl=0;
-    var prChAl=0, prChRe=0, prChVe=0, prChVa=0, prChSg=0, prChSl=0;
-    var id_lieuLoc = new Array(sizeLieux);
-    var lieuPosX = new Array(sizeLieux);
-    var compti=0;
-</script>
-
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  var sizeLieux = "{{ lieux.count|safe }}";
+  var tabId = new Array(sizeLieux);
+  var tabNom = new Array(sizeLieux);
+  var tabType = new Array(sizeLieux);
+  var tabDist = new Array(sizeLieux);
+  var tabNote = new Array(sizeLieux);
+  var arrayFav = new Array();
+  var arrayMenu = new Array();
+  var arrayPP = new Array();
+  var arrayRe = new Array();
+  var arrayAl = new Array();
+  var arrVe = new Array(sizeLieux);
+  var arrVa = new Array(sizeLieux);
+  var arrSg = new Array(sizeLieux);
+  var arrSl = new Array(sizeLieux);
+  var i = 0, d = 0, cptVe=0, cptVa=0, cptSg=0, cptSl=0;
+  var prChAl=0, prChRe=0, prChVe=0, prChVa=0, prChSg=0, prChSl=0;
+  var id_lieuLoc = new Array(sizeLieux);
+  var lieuPosX = new Array(sizeLieux);
+  var compti=0;
+  </script>
+  <script>
+  $( function() {
+  $( "#accordion" ).accordion({
+  heightStyle: "content"
+  });
+  } );
+  </script>
   <form name="recherche" action="/appPrincipale/home/" method="post" >
     {% csrf_token %}
     <div>
-        <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois"/>
-        <button class= "btn btn-primaray btn-lg" type="button" onClick="DoSubmit()">Rechercher</button>
+      <input id='lieu' type="search" name="lieuRestauration" placeholder="Ex : RU Brabois"/>
+      <button class= "btn btn-primaray btn-lg" type="button" onClick="DoSubmit()">Rechercher</button>
     </div>
-  <fieldset>
-      <legend>Type de lieu de restauration</legend>
+    <div id="accordion">
+      <h2> Type de Lieux de Restauration</h2>
       <div>
-        <input type="checkbox" id="RU" name="RU" value="RU" checked >
-        <label for="RU">RU</label>
-        <input type="checkbox" id="BR" name="BR" value="BR" checked >
-        <label for="BR">Brasserie</label>
-        <input type="checkbox" id="CA" name="CA" value="CA" checked >
-        <label for="CA">Cafétéria</label>
-        <input type="checkbox" id="FO" name="FO" value="FO" checked >
-        <label for="FO">Foodtruck</label>
-        <input type="checkbox" id="SA" name="SA" value="SA" checked >
-        <label for="SA">Salle administrative</label>
-        <input type="checkbox" id="SW" name="SW" value="SW" checked >
-        <label for="SW">Sandwicherie</label>
+        <fieldset>
+          <legend>Type de lieu de restauration</legend>
+          <div>
+            <input type="checkbox" id="RU" name="RU" value="RU" checked >
+            <label for="RU">RU</label>
+            <input type="checkbox" id="BR" name="BR" value="BR" checked >
+            <label for="BR">Brasserie</label>
+            <input type="checkbox" id="CA" name="CA" value="CA" checked >
+            <label for="CA">Cafétéria</label>
+            <input type="checkbox" id="FO" name="FO" value="FO" checked >
+            <label for="FO">Foodtruck</label>
+            <input type="checkbox" id="SA" name="SA" value="SA" checked >
+            <label for="SA">Salle administrative</label>
+            <input type="checkbox" id="SW" name="SW" value="SW" checked >
+            <label for="SW">Sandwicherie</label>
+          </div>
+        </fieldset>
       </div>
-  </fieldset>
-  <fieldset>
-      <legend>Régimes - Allergies</legend>
+      <h2>Régimes et Allergies</h2>
       <div>
-        <input type="checkbox" id="vege" name="vege" value="vege" >
-        <label for="vege">Végétarien</label>
-        <input type="checkbox" id="vega" name="vega" value="vega" >
-        <label for="vega">Vegan</label>
-        <input type="checkbox" id="sglu" name="sglu" value="sglu" >
-        <label for="sglu">Sans gluten</label>
-        <input type="checkbox" id="slac" name="slac" value="slac" >
-        <label for="slac">Sans lactose</label>
+        <fieldset>
+          <legend>Régimes - Allergies</legend>
+          <div>
+            <input type="checkbox" id="vege" name="vege" value="vege" >
+            <label for="vege">Végétarien</label>
+            <input type="checkbox" id="vega" name="vega" value="vega" >
+            <label for="vega">Vegan</label>
+            <input type="checkbox" id="sglu" name="sglu" value="sglu" >
+            <label for="sglu">Sans gluten</label>
+            <input type="checkbox" id="slac" name="slac" value="slac" >
+            <label for="slac">Sans lactose</label>
+          </div>
+        </fieldset>
       </div>
-  </fieldset>
-  <fieldset>
-      <legend>Distance</legend>
+      <h2>Distance</h2>
       <div>
-        <input type="radio" id="ind1" name="dist" value="ind1" checked >
-        <label for="ind1">Indifférent</label>
-        <input type="radio" id="1km" name="dist" value="1km" >
-        <label for="1km">Moins d'1 km</label>
-        <input type="radio" id="2km" name="dist" value="2km" >
-        <label for="2km">Moins de 2 km</label>
-        <input type="radio" id="3km" name="dist" value="3km"  >
-        <label for="3km">Moins de 3 km</label>
-        <input type="radio" id="4km" name="dist" value="4km"  >
-        <label for="4km">Moins de 4 km</label>
+        <fieldset>
+          <legend>Distance</legend>
+          <div>
+            <input type="radio" id="ind1" name="dist" value="ind1" checked >
+            <label for="ind1">Indifférent</label>
+            <input type="radio" id="1km" name="dist" value="1km" >
+            <label for="1km">Moins d'1 km</label>
+            <input type="radio" id="2km" name="dist" value="2km" >
+            <label for="2km">Moins de 2 km</label>
+            <input type="radio" id="3km" name="dist" value="3km"  >
+            <label for="3km">Moins de 3 km</label>
+            <input type="radio" id="4km" name="dist" value="4km"  >
+            <label for="4km">Moins de 4 km</label>
+          </div>
+        </fieldset>
       </div>
-  </fieldset>
-  <fieldset>
-      <legend>Note</legend>
+      <h2>Note</h2>
       <div>
-        <input type="radio" id="ind2" name="note" value="ind2" checked >
-        <label for="ind2">Indifférent</label>
-        <input type="radio" id="1star" name="note" value="1star"  >
-        <label for="1star">Plus d'1 étoile</label>
-        <input type="radio" id="2star" name="note" value="2star"  >
-        <label for="2star">Plus de 2 étoiles</label>
-        <input type="radio" id="3star" name="note" value="3star"  >
-        <label for="3star">Plus de 3 étoiles</label>
-        <input type="radio" id="4star" name="note" value="4star"  >
-        <label for="4star">Plus de 4 étoiles</label>
+        <fieldset>
+          <legend>Note</legend>
+          <div>
+            <input type="radio" id="ind2" name="note" value="ind2" checked >
+            <label for="ind2">Indifférent</label>
+            <input type="radio" id="1star" name="note" value="1star"  >
+            <label for="1star">Plus d'1 étoile</label>
+            <input type="radio" id="2star" name="note" value="2star"  >
+            <label for="2star">Plus de 2 étoiles</label>
+            <input type="radio" id="3star" name="note" value="3star"  >
+            <label for="3star">Plus de 3 étoiles</label>
+            <input type="radio" id="4star" name="note" value="4star"  >
+            <label for="4star">Plus de 4 étoiles</label>
+          </div>
+        </fieldset>
       </div>
-  </fieldset>
-    <fieldset>
-      <legend>Favoris</legend>
+      <h2>Favoris</h2>
       <div>
-        <input type="radio" id="ind3" name="fav" value="ind3" checked >
-        <label for="ind3">Indifférent</label>
-        <input type="radio" id="favo" name="fav" value="favo"  >
-        <label for="favo">Seulement les favoris</label>
+        <fieldset>
+          <legend>Favoris</legend>
+          <div>
+            <input type="radio" id="ind3" name="fav" value="ind3" checked >
+            <label for="ind3">Indifférent</label>
+            <input type="radio" id="favo" name="fav" value="favo"  >
+            <label for="favo">Seulement les favoris</label>
+          </div>
+        </fieldset>
       </div>
-  </fieldset>
+    </div>
+    
   </form>
-
-<span id="hey"></span>
-
-<!-- Précheck des checkbox préférences -->      
-      {% for us in userProfil %}
-        <script>
-          if({{ us.user_id }} == {{ user.id }}) {
-            prChAl = {{ us.allergie_id }};
-            prChRe = {{ us.regime_id }};
-          }
-        </script>
-      {% endfor %}
-
-      {% for alle in al %}
-        <script>
-          if(prChAl == {{ alle.id }}) {
-            prChSl = "{{ alle.sLactose }}";
-            prChSg = "{{ alle.sGluten }}";
-          }
-        </script>
-      {% endfor %}
-
-      {% for regi in re %}
-        <script>
-          if(prChRe == {{ regi.id }}) {
-            prChVe = "{{ regi.vegetarien }}";
-            prChVa = "{{ regi.vegan }}";
-          }
-        </script>
-      {% endfor %}
-
-<script>
-window.onload = function() {
-    if(prChSl.localeCompare("True")) document.getElementById("slac").checked = false;
-    else document.getElementById("slac").checked = true;
-    if(prChSg.localeCompare("True")) document.getElementById("sglu").checked = false;
-    else document.getElementById("sglu").checked = true;
-    if(prChVe.localeCompare("True")) document.getElementById("vege").checked = false;
-    else document.getElementById("vege").checked = true;
-    if(prChVa.localeCompare("True")) document.getElementById("vega").checked = false;
-    else document.getElementById("vega").checked = true;
-    DoSubmit();
-};
-</script>
-
-
-  <ul> 
+  <span id="hey"></span>
+  <!-- Précheck des checkbox préférences -->
+  {% for us in userProfil %}
+    <script>
+    if({{ us.user_id }} == {{ user.id }}) {
+    prChAl = {{ us.allergie_id }};
+    prChRe = {{ us.regime_id }};
+    }
+    </script>
+  {% endfor %}
+  {% for alle in al %}
+    <script>
+    if(prChAl == {{ alle.id }}) {
+    prChSl = "{{ alle.sLactose }}";
+    prChSg = "{{ alle.sGluten }}";
+    }
+    </script>
+  {% endfor %}
+  {% for regi in re %}
+    <script>
+    if(prChRe == {{ regi.id }}) {
+    prChVe = "{{ regi.vegetarien }}";
+    prChVa = "{{ regi.vegan }}";
+    }
+    </script>
+  {% endfor %}
+  <script>
+  window.onload = function() {
+  if(prChSl.localeCompare("True")) document.getElementById("slac").checked = false;
+  else document.getElementById("slac").checked = true;
+  if(prChSg.localeCompare("True")) document.getElementById("sglu").checked = false;
+  else document.getElementById("sglu").checked = true;
+  if(prChVe.localeCompare("True")) document.getElementById("vege").checked = false;
+  else document.getElementById("vege").checked = true;
+  if(prChVa.localeCompare("True")) document.getElementById("vega").checked = false;
+  else document.getElementById("vega").checked = true;
+  DoSubmit();
+  };
+  </script>
+  <ul>
     {% for n in lieux %}
-
       {% for m in menu %}
         <script>
-          if({{ m.lieuRestauration_id }} == {{ n.id }}) arrayMenu.push({{ m.id }});
+        if({{ m.lieuRestauration_id }} == {{ n.id }}) arrayMenu.push({{ m.id }});
         </script>
       {% endfor %}
-
       {% for mpp in menupp %}
         <script>
-          for (var r = 0; r < arrayMenu.length; r++) {
-              if(arrayMenu[r] == {{ mpp.menu_id }}) arrayPP.push({{ mpp.platPrincipal_id }}); 
-          }
+        for (var r = 0; r < arrayMenu.length; r++) {
+        if(arrayMenu[r] == {{ mpp.menu_id }}) arrayPP.push({{ mpp.platPrincipal_id }});
+        }
         </script>
       {% endfor %}
-
       {% for plpr in pp %}
         <script>
-          for (var k = 0; k < arrayPP.length; k++) {
-              if(arrayPP[k] == {{ plpr.id }}) {
-                arrayRe.push({{ plpr.regime_id }});
-                arrayAl.push({{ plpr.allergie_id }});
-              } 
-          }
+        for (var k = 0; k < arrayPP.length; k++) {
+        if(arrayPP[k] == {{ plpr.id }}) {
+        arrayRe.push({{ plpr.regime_id }});
+        arrayAl.push({{ plpr.allergie_id }});
+        }
+        }
         </script>
       {% endfor %}
       
       {% for a in al %}
         <script>
-          for (var k = 0; k < arrayAl.length; k++) {
-              if(arrayAl[k] == {{ a.id }}) {
-                if({{ a.sGluten|yesno:"true,false" }}) cptSg++;
-                if({{ a.sLactose|yesno:"true,false" }}) cptSl++;
-              } 
-          }
+        for (var k = 0; k < arrayAl.length; k++) {
+        if(arrayAl[k] == {{ a.id }}) {
+        if({{ a.sGluten|yesno:"true,false" }}) cptSg++;
+        if({{ a.sLactose|yesno:"true,false" }}) cptSl++;
+        }
+        }
         </script>
       {% endfor %}
-
       {% for r in re %}
         <script>
-          for (var k = 0; k < arrayRe.length; k++) {
-              if(arrayRe[k] == {{ r.id }}) {
-                if({{ r.vegetarien|yesno:"true,false" }}) cptVe++;
-                if({{ r.vegan|yesno:"true,false" }}) cptVa++;
-              } 
-          }
+        for (var k = 0; k < arrayRe.length; k++) {
+        if(arrayRe[k] == {{ r.id }}) {
+        if({{ r.vegetarien|yesno:"true,false" }}) cptVe++;
+        if({{ r.vegan|yesno:"true,false" }}) cptVa++;
+        }
+        }
         </script>
       {% endfor %}
       
       <script>
-        if(cptSg>0) arrSg[d] = 1;
-        else arrSg[d] = 0;
-        if(cptSl>0) arrSl[d] = 1;
-        else arrSl[d] = 0;
-        if(cptVe>0) arrVe[d] = 1;
-        else arrVe[d] = 0;
-        if(cptVa>0) arrVa[d] = 1;
-        else arrVa[d] = 0;
-        arrayRe = []; arrayAl = []; arrayMenu = []; arrayPP = [];
-        cptSl=0; cptVa=0; cptVe=0; cptSg=0;
-        d++;
+      if(cptSg>0) arrSg[d] = 1;
+      else arrSg[d] = 0;
+      if(cptSl>0) arrSl[d] = 1;
+      else arrSl[d] = 0;
+      if(cptVe>0) arrVe[d] = 1;
+      else arrVe[d] = 0;
+      if(cptVa>0) arrVa[d] = 1;
+      else arrVa[d] = 0;
+      arrayRe = []; arrayAl = []; arrayMenu = []; arrayPP = [];
+      cptSl=0; cptVa=0; cptVe=0; cptSg=0;
+      d++;
       </script>
-
       {% for f in fav %}
-      <script>
+        <script>
         if(({{ f.lieu_id|safe }} == {{ n.id|safe }}) && ({{ f.user_id|safe }} == {{ user.id|safe }})) arrayFav.push("{{ n.id|safe }}");
-      </script>
+        </script>
       {% endfor %}
-     <script>
+      <script>
       tabId[i] = "{{ n.id|safe }}";
       tabNom[i] = "{{ n.nom|safe }}";
       tabType[i] = "{{ n.typeR|safe }}";
       tabDist[i] = "{{ n.distance|safe }}";
       tabNote[i] = "{{ n.note|safe }}";
       i++;
-     </script> 
-    
-    <span id="{{ n.id }}">
-      <li><a href="/appPrincipale/lieuR/{{ n.id }}/{{ user.id }}"> {{ n.nom }}</a>(Distance : <span id="{{ n.id }}deux"></span> km - Note {{ n.note }}/5)</li>
-    </span>
-
-<!--     <script>
+      </script>
+      
+      <span id="{{ n.id }}">
+        <li><a href="/appPrincipale/lieuR/{{ n.id }}/{{ user.id }}"> {{ n.nom }}</a>(Distance : <span id="{{ n.id }}deux"></span> km - Note {{ n.note }}/5)</li>
+      </span>
+      <!--     <script>
       id_lieuLoc[compti] = "{{ n.id|safe }}deux";
       lieuPosX[compti] = {{ n.posX|safe }};
       lieuPosY[compti] = {{ n.posY|safe }};
       compti++;
-    </script> -->
-
+      </script> -->
     {% endfor %}
-
-  </ul> 
-
-<script>
-      function DoSubmit(){
-        for (var j = 0; j < sizeLieux; j++) {
-          if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1 
-            || !(document.getElementById(tabType[j]).checked)
-            || !(fdist(tabDist[j]))
-            || !(fnote(tabNote[j]))
-            || !(ffavoris(tabId[j]))
-            || !(falleregi(j))) {
-            document.getElementById(tabId[j]).style.display = "none";
-          }
-          else document.getElementById(tabId[j]).style.display = "block";
-        }
-        
-      }
-      function fdist(dist) {
-        if(document.getElementById("ind1").checked) return true;
-        else if(document.getElementById("1km").checked) return (dist<=1);
-        else if(document.getElementById("2km").checked) return (dist<=2);
-        else if(document.getElementById("3km").checked) return (dist<=3);
-        else if(document.getElementById("4km").checked) return (dist<=4);
-        return false;
-      }
-      function fnote(note) {
-        if(document.getElementById("ind2").checked) return true;
-        else if(document.getElementById("1star").checked) return (note>=1);
-        else if(document.getElementById("2star").checked) return (note>=2);
-        else if(document.getElementById("3star").checked) return (note>=3);
-        else if(document.getElementById("4star").checked) return (note>=4);
-        return false;
-      }
-      function ffavoris(id) {
-        if(!(document.getElementById("ind3").checked)) {
-          return arrayFav.includes(id);
-        }
-        return true;
-      }
-      function falleregi(idar) {
-        if(document.getElementById("vege").checked) {
-          if(arrVe[idar]==0) return false;
-        }
-        if(document.getElementById("vega").checked) {
-          if(arrVa[idar]==0) return false;
-        }
-        if(document.getElementById("sglu").checked) {
-          if(arrSg[idar]==0) return false;
-        }
-        if(document.getElementById("slac").checked) {
-          if(arrSl[idar]==0) return false;
-        }
-        return true;
-      }
-/*      function precisionRound(number, precision) {
-       var factor = Math.pow(10, precision);
-       return Math.round(number * factor) / factor;
-      }*/
-</script> 
-
+  </ul>
+  <script>
+  function DoSubmit(){
+  for (var j = 0; j < sizeLieux; j++) {
+  if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1
+  || !(document.getElementById(tabType[j]).checked)
+  || !(fdist(tabDist[j]))
+  || !(fnote(tabNote[j]))
+  || !(ffavoris(tabId[j]))
+  || !(falleregi(j))) {
+  document.getElementById(tabId[j]).style.display = "none";
+  }
+  else document.getElementById(tabId[j]).style.display = "block";
+  }
+  
+  }
+  function fdist(dist) {
+  if(document.getElementById("ind1").checked) return true;
+  else if(document.getElementById("1km").checked) return (dist<=1);
+  else if(document.getElementById("2km").checked) return (dist<=2);
+  else if(document.getElementById("3km").checked) return (dist<=3);
+  else if(document.getElementById("4km").checked) return (dist<=4);
+  return false;
+  }
+  function fnote(note) {
+  if(document.getElementById("ind2").checked) return true;
+  else if(document.getElementById("1star").checked) return (note>=1);
+  else if(document.getElementById("2star").checked) return (note>=2);
+  else if(document.getElementById("3star").checked) return (note>=3);
+  else if(document.getElementById("4star").checked) return (note>=4);
+  return false;
+  }
+  function ffavoris(id) {
+  if(!(document.getElementById("ind3").checked)) {
+  return arrayFav.includes(id);
+  }
+  return true;
+  }
+  function falleregi(idar) {
+  if(document.getElementById("vege").checked) {
+  if(arrVe[idar]==0) return false;
+  }
+  if(document.getElementById("vega").checked) {
+  if(arrVa[idar]==0) return false;
+  }
+  if(document.getElementById("sglu").checked) {
+  if(arrSg[idar]==0) return false;
+  }
+  if(document.getElementById("slac").checked) {
+  if(arrSl[idar]==0) return false;
+  }
+  return true;
+  }
+  /*      function precisionRound(number, precision) {
+  var factor = Math.pow(10, precision);
+  return Math.round(number * factor) / factor;
+  }*/
+  </script>
 {% endblock %}
