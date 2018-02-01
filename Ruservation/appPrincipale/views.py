@@ -51,14 +51,14 @@ def profil(request, user_id):
     return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})
 
 def addFav(request, lieu_id, user_id):
-    userP = UserProfile.objects.get(user_id=user_id)
+    # userP = UserProfile.objects.get(user_id=user_id)
     if Favoris.objects.filter(user_id=user_id, lieu_id=lieu_id).count()>0:
         Favoris.objects.filter(user_id=user_id, lieu_id=lieu_id).delete()
     else:
         f = Favoris(user_id=user_id, lieu_id=lieu_id)
         f.save()
-    fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
-    lieux = LieuRestauration.objects.filter(id__in = fav)
+    # fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
+    # lieux = LieuRestauration.objects.filter(id__in = fav)
     return redirect('favoris', user_id = user_id) 
     # return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux, 'userP' : userP})
 
@@ -124,8 +124,8 @@ def resDone(request, lieu_id, user_id, platP_id):
     plat = PlatPrincipal.objects.get(pk=platP_id)
     res = Reservation(prix = plat.prix, date = date, user_id=user_id, lieu_id = lieu_id)
     res.save()
-    userProfil = UserProfile.objects.get(user_id=user_id)
-    regimes = Regime.objects.get(pk=userProfil.regime_id)
-    allergies = Allergie.objects.get(pk=userProfil.allergie_id)
+    # userProfil = UserProfile.objects.get(user_id=user_id)
+    # regimes = Regime.objects.get(pk=userProfil.regime_id)
+    # allergies = Allergie.objects.get(pk=userProfil.allergie_id)
     return redirect('profil', user_id = user_id)
     # return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})
