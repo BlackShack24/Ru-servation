@@ -43,6 +43,12 @@ def lieuR(request, lieu_id, user_id):
 def profil(request, user_id):
     if UserProfile.objects.filter(user_id=user_id).count() == 0:
         userProfil = UserProfile(ville='Nancy', lieuEtude='ARTEM', solde=0, user_id=user_id)
+        regimes = Regime(vegetarien=False, vegan=False)
+        regimes.save()
+        userProfil.regime_id = regimes.id
+        allergies = Allergie(sGluten=False, sLactose=False)
+        allergies.save()
+        userProfil.allergie_id = allergies.id    
         userProfil.save()
     else:
         userProfil = UserProfile.objects.get(user_id=user_id)
@@ -51,16 +57,12 @@ def profil(request, user_id):
     return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})
 
 def addFav(request, lieu_id, user_id):
-    # userP = UserProfile.objects.get(user_id=user_id)
     if Favoris.objects.filter(user_id=user_id, lieu_id=lieu_id).count()>0:
         Favoris.objects.filter(user_id=user_id, lieu_id=lieu_id).delete()
     else:
         f = Favoris(user_id=user_id, lieu_id=lieu_id)
         f.save()
-    # fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
-    # lieux = LieuRestauration.objects.filter(id__in = fav)
     return redirect('favoris', user_id = user_id) 
-    # return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux, 'userP' : userP})
 
 def favoris(request, user_id):
     userP = UserProfile.objects.get(user_id=user_id)
@@ -100,7 +102,6 @@ def get_Param(request, user_id):
         al.save()
         re.save()
     return redirect('profil', user_id = user_id)
-    # return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : re, 'al' : al})
 
 def geoLoc(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
@@ -124,8 +125,4 @@ def resDone(request, lieu_id, user_id, platP_id):
     plat = PlatPrincipal.objects.get(pk=platP_id)
     res = Reservation(prix = plat.prix, date = date, user_id=user_id, lieu_id = lieu_id)
     res.save()
-    # userProfil = UserProfile.objects.get(user_id=user_id)
-    # regimes = Regime.objects.get(pk=userProfil.regime_id)
-    # allergies = Allergie.objects.get(pk=userProfil.allergie_id)
     return redirect('profil', user_id = user_id)
-    # return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})
