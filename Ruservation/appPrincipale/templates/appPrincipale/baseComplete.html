@@ -12,16 +12,16 @@
     <header>
       <div class = "container">
         <div class = "row">
-          <div class = "col-sm-12 col-md-3">
+          <div class = "col-sm-12 col-md-12">
             <img class="logo" src="{% static 'img/logo.png' %}" alt="Logo">
           </div> <br>
-          <div class = "col col-md-3">
+          <div class = "col col-md-4">
             <a class = "btn btn-primary" href="/appPrincipale/profil/{{ user.id }}/" role = "button">Profil</a>
           </div>
-          <div class = "col col-md-3">
+          <div class = "col col-md-4">
             <p id="PageCourante">{% block title %}{% endblock %}</p>
           </div>
-          <div class = "col col-md-3">
+          <div class = "col col-md-4">
             <a class="btn btn-primary" href="/appPrincipale/home" role = "button">Home</a>
           </div>
         </div><br>

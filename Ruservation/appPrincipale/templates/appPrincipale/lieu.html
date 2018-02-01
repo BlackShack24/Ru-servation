@@ -1,16 +1,18 @@
 {% extends 'appPrincipale/baseComplete.html' %}
 {% block title %}Lieu restauration{% endblock %}
 {% block content %}
+{% load static %}
 
 
 
 
   <script>
     window.onload = function() {
-      if(("{{ fav }}".localeCompare("False")) == 1) document.frmFav.btnFav.value = "Supprimer des favoris";
-      else document.frmFav.btnFav.value = "Ajouter aux favoris";
+      if(("{{ fav }}".localeCompare("False")) == 1) document.getElementById("imgFav").src = "{% static 'img/favoris2.png' %}";
+      else document.getElementById("imgFav").src = "{% static 'img/favoris.png' %}";
     };
   </script>
+
 
 
 <div class="container">
@@ -21,7 +23,7 @@
     </div>
     <div class = "col-sm-12">
       <form action="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}" method="get" name="frmFav">
-        <input  class= "btn btn-primaray" type="submit" value="" name="btnFav"/>
+        <input type="image" src = "{% static 'img/favoris.png' %}" alt= "submit" id="imgFav">
       </form>
     </div>
     <div class = "col-sm-12">

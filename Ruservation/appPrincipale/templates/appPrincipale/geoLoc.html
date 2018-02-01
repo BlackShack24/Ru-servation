@@ -4,10 +4,20 @@
 
 {% block content %}
 
-<h2>Votre position => {{ lieu.nom }} <span id="km"></span> km</h2>
-<span id="hey"></span><br>
+<div class = "container">
+  <div class ="row">
+    <div class = "col">
+      <h2>Votre position => {{ lieu.nom }} <span id="km"></span> km</h2>
+      <span id="hey"></span><br>
+    </div>
+  </div>
+  <div class = "row">
+      <div id="googleMap" class = "col" style="width:50%;height:400px;"></div>
+  </div>
+</div>
 
-<div id="googleMap" style="width:50%;height:400px;"></div>
+
+
 
 <script>
 /*     var myLatLng2;
