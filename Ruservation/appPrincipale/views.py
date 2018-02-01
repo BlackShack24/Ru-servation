@@ -31,12 +31,14 @@ def home(request):
     al = Allergie.objects.all()
     return render(request, 'appPrincipale/home.html', {'lieux': lieux, 'fav' : fav, 'menu' : menu, 'menupp' : menupp, 'pp' : platPrincipal, 're' : re, 'al' : al, 'userProfil' : userProfil})
 
-def lieuR(request, lieu_id):
+def lieuR(request, lieu_id, user_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
     menu = get_object_or_404(Menu, lieuRestauration_id = lieu.id)
     menupp = MenuPlatPrincipal.objects.filter(menu_id = menu.id)
     platPrincipal = PlatPrincipal.objects.all()
-    return render(request, 'appPrincipale/lieu.html', {'lieu': lieu, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp})
+    if(Favoris.objects.filter(lieu_id=lieu_id, user_id=user_id).count()>0): fav = True;
+    else: fav = False; 
+    return render(request, 'appPrincipale/lieu.html', {'lieu': lieu, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp, 'fav' : fav})
 
 def profil(request, user_id):
     if UserProfile.objects.filter(user_id=user_id).count() == 0:
@@ -57,7 +59,8 @@ def addFav(request, lieu_id, user_id):
         f.save()
     fav = Favoris.objects.filter(user_id=user_id).values_list('lieu_id', flat='True')
     lieux = LieuRestauration.objects.filter(id__in = fav)
-    return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux, 'userP' : userP})
+    return redirect('favoris', user_id = user_id) 
+    # return render(request, 'appPrincipale/favoris.html', {'lieux' : lieux, 'userP' : userP})
 
 def favoris(request, user_id):
     userP = UserProfile.objects.get(user_id=user_id)
@@ -96,11 +99,11 @@ def get_Param(request, user_id):
         userProfil.save()
         al.save()
         re.save()
-    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : re, 'al' : al})
+    return redirect('profil', user_id = user_id)
+    # return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : re, 'al' : al})
 
 def geoLoc(request, lieu_id):
     lieu = LieuRestauration.objects.get(pk=lieu_id)
-
     return render(request, 'appPrincipale/geoLoc.html', {'lieu': lieu})
 
 def reservation(request, lieu_id, user_id):
@@ -109,13 +112,11 @@ def reservation(request, lieu_id, user_id):
     menu = get_object_or_404(Menu, lieuRestauration_id = lieu.id)
     menupp = MenuPlatPrincipal.objects.filter(menu_id = menu.id)
     platPrincipal = PlatPrincipal.objects.all()
-
     return render(request, 'appPrincipale/reservation.html', {'lieu': lieu, 'userP' : userP, 'menu': menu, 'plats': platPrincipal, 'menupp': menupp})
 
 def historique(request, user_id):
     res = Reservation.objects.filter(user_id=user_id)
     lieu = LieuRestauration.objects.all()
-
     return render(request, 'appPrincipale/historique.html', {'res': res, 'lieu' : lieu})
 
 def resDone(request, lieu_id, user_id, platP_id):
@@ -126,4 +127,5 @@ def resDone(request, lieu_id, user_id, platP_id):
     userProfil = UserProfile.objects.get(user_id=user_id)
     regimes = Regime.objects.get(pk=userProfil.regime_id)
     allergies = Allergie.objects.get(pk=userProfil.allergie_id)
-    return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})
+    return redirect('profil', user_id = user_id)
+    # return render(request, 'appPrincipale/profil.html', {'userProfil': userProfil, 're' : regimes, 'al' : allergies})

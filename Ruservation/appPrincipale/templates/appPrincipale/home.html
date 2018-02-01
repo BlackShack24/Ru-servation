@@ -231,7 +231,7 @@ window.onload = function() {
       i++;
      </script> 
      
-     <span id="{{ n.id }}"><li><a href="/appPrincipale/lieuR/{{ n.id }}/"> {{ n.nom }}</a>(Distance : {{ n.distance }} km - Note {{ n.note }}/5)</li></span>
+     <span id="{{ n.id }}"><li><a href="/appPrincipale/lieuR/{{ n.id }}/{{ user.id }}"> {{ n.nom }}</a>(Distance : {{ n.distance }} km - Note {{ n.note }}/5)</li></span>
 
     {% endfor %}
   </ul> 

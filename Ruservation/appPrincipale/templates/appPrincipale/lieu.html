@@ -1,6 +1,18 @@
 {% extends 'appPrincipale/baseComplete.html' %}
 {% block title %}Lieu restauration{% endblock %}
 {% block content %}
+
+
+
+
+  <script>
+    window.onload = function() {
+      if(("{{ fav }}".localeCompare("False")) == 1) document.frmFav.btnFav.value = "Supprimer des favoris";
+      else document.frmFav.btnFav.value = "Ajouter aux favoris";
+    };
+  </script>
+
+
 <div class="container">
   <div class = "row">
     <div class = "col-sm-12">
@@ -8,8 +20,8 @@
       <span> {{ lieu.adresse }} </span><br><br>
     </div>
     <div class = "col-sm-12">
-      <form action="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}" method="get">
-        <input  class= "btn btn-primaray" type="submit" value="Ajouter au favoris"/>
+      <form action="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}" method="get" name="frmFav">
+        <input  class= "btn btn-primaray" type="submit" value="" name="btnFav"/>
       </form>
     </div>
     <div class = "col-sm-12">
