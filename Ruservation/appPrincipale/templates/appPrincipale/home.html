@@ -41,10 +41,9 @@
       <button class= "btn btn-primaray btn-lg" type="button" onClick="DoSubmit()">Rechercher</button>
     </div>
     <div id="accordion">
-      <h2> Type de Lieux de Restauration</h2>
+      <h4> Type de Lieux de Restauration +</h4>
       <div>
         <fieldset>
-          <legend>Type de lieu de restauration</legend>
           <div>
             <input type="checkbox" id="RU" name="RU" value="RU" checked >
             <label for="RU">RU</label>
@@ -61,10 +60,9 @@
           </div>
         </fieldset>
       </div>
-      <h2>Régimes et Allergies</h2>
+      <h4>Régimes et Allergies +</h4>
       <div>
         <fieldset>
-          <legend>Régimes - Allergies</legend>
           <div>
             <input type="checkbox" id="vege" name="vege" value="vege" >
             <label for="vege">Végétarien</label>
@@ -77,10 +75,9 @@
           </div>
         </fieldset>
       </div>
-      <h2>Distance</h2>
+      <h4>Distance +</h4>
       <div>
         <fieldset>
-          <legend>Distance</legend>
           <div>
             <input type="radio" id="ind1" name="dist" value="ind1" checked >
             <label for="ind1">Indifférent</label>
@@ -95,10 +92,9 @@
           </div>
         </fieldset>
       </div>
-      <h2>Note</h2>
+      <h4>Note +</h4>
       <div>
         <fieldset>
-          <legend>Note</legend>
           <div>
             <input type="radio" id="ind2" name="note" value="ind2" checked >
             <label for="ind2">Indifférent</label>
@@ -113,10 +109,9 @@
           </div>
         </fieldset>
       </div>
-      <h2>Favoris</h2>
+      <h4>Favoris +</h4>
       <div>
         <fieldset>
-          <legend>Favoris</legend>
           <div>
             <input type="radio" id="ind3" name="fav" value="ind3" checked >
             <label for="ind3">Indifférent</label>
@@ -130,6 +125,8 @@
   </form>
   <span id="hey"></span>
   <!-- Précheck des checkbox préférences -->
+
+  <h2>Résultats : </h2>
   {% for us in userProfil %}
     <script>
     if({{ us.user_id }} == {{ user.id }}) {
