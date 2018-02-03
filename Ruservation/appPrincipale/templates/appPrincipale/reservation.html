@@ -4,11 +4,11 @@
 
 {% block content %}
 
+<!-- Initialisation des variables -->
 <script>
   var verif = false;
   var idPP = new Array();
   var prixPP;
-  var urlHist;
 </script>
 
 <div class="container">
@@ -20,6 +20,7 @@
   </div>
 </div>
 
+<!-- Affichage des choix d'entrées, de plats principaux, de dessert et du pain -->
 <div class = "container">
     <form action="/" method="get" name="reserver" id="reserver" onsubmit="DoSubmit()" >
       <span>Menu du [ {{ menu.date }} ] :</span><br>
@@ -42,6 +43,7 @@
         </ul>
         </fieldset>
       </div>
+<!--  Seul les plats principaux sont récupérés dans la BDD -->
       <div class = "col-sm-4">
         <fieldset>
           <legend>Plat principal</legend>
@@ -50,7 +52,7 @@
             {% for m in plats %}
               {% if n.platPrincipal_id == m.id %}
                 <script>
-                  if(!verif) {
+                  if(!verif) { // On effectue cette condition pour affecter un id spécifique au premier plat principal afin de le cocher
                     var firstId = "{{ m.id }}";
                     prixPP = {{ m.prix }};
                     verif = true;
@@ -103,12 +105,15 @@
     </form>
 </div>
 
+
 <script>
+  // Fonction appelée au chargement de la page
   window.onload = function() {
-    document.getElementById(firstId).checked = true;
+    document.getElementById(firstId).checked = true; // Check le premier plat principal
     document.getElementById("prix").innerHTML = prixPP;
     DoSubmit();
   };
+  // Permet de changer l'url cible du formulaire en fonction du plat principal choisi
   function DoSubmit(){
     for(var k = 0; k < idPP.length; k++) {
       if(document.getElementById(idPP[k]).checked) {
@@ -116,16 +121,6 @@
       }
     }
   }
-/*  var rad = document.reserver.pp;
-  var prev = null;
-  for(var i = 0; i < rad.length; i++) {
-    rad[i].onclick = function() {
-        
-    };
-  }*/
-
 </script>
-
-
 
 {% endblock %}

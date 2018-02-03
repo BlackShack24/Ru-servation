@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<!-- Permet de modifier ses informations.  -->
 <form class= "form-horizontal" action="/appPrincipale/getParam/{{ user.id }}/" method="post">
   {% csrf_token %}
   <div class = "row">
@@ -42,7 +43,6 @@
     </div>
 
   </div>
-
 
   <fieldset>
     <legend>Localisation</legend>

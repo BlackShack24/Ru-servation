@@ -4,8 +4,10 @@
 
 {% block content %}
 
-<div class="container">
+<!-- La page login permet à l'utilisateur de se connecter ou de s'inscrire.
+Les fonctions prédéfinies de Django ont été utilisés pour cela. -->
 
+<div class="container">
 	<div class = "row">
 	<div class = "col">
 		<form method="post">
@@ -17,18 +19,13 @@
 				<div class = "col">
 					<button class= "btn btn-primaray btn-lg" type="submit">Login</button>		
 				</div>
-
 				<div class = "col">
 					<a class = "btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign up</a>	
 				</div>	
-			</div>
-    		
-    		
+			</div>		
   		</form>
 	</div>
-
-</div>
-	
+    </div>	
 </div>
 
 

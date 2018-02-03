@@ -5,6 +5,8 @@
   
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- Instanciation des variables -->
   <script>
   var sizeLieux = "{{ lieux.count|safe }}";
   var tabId = new Array(sizeLieux);
@@ -27,6 +29,8 @@
   var lieuPosX = new Array(sizeLieux);
   var compti=0;
   </script>
+
+<!-- Cette fonction JQuery permet de créer un effet accordéon sur les critères de recherche -->
   <script>
   $( function() {
   $( "#accordion" ).accordion({
@@ -34,6 +38,8 @@
   });
   } );
   </script>
+
+<!-- Affichage du formulaire de recherche avec les différents critères de recherche -->
   <form name="recherche" action="/appPrincipale/home/" method="post" >
     {% csrf_token %}
     <div>
@@ -124,8 +130,8 @@
     
   </form>
   <span id="hey"></span>
-  <!-- Précheck des checkbox préférences -->
 
+  <!-- Script qui va chercher dans la BDD les préférences de l'utilisateur (Allergies/Régimes) -->
   <h2>Résultats : </h2>
   {% for us in userProfil %}
     <script>
@@ -151,6 +157,8 @@
     }
     </script>
   {% endfor %}
+
+<!-- Une fois les préférences récupérés, au chargement de la page cela va 'préchecker' les checkbox correspondantes -->
   <script>
   window.onload = function() {
   if(prChSl.localeCompare("True")) document.getElementById("slac").checked = false;
@@ -164,8 +172,12 @@
   DoSubmit();
   };
   </script>
+
   <ul>
     {% for n in lieux %}
+
+<!--     Pour chaque lieu on va déterminer si ils propose au moins un menu végétarien, vegan, sans glucose ou sans lactose
+    afin de les afficher ou non en fonction des critères selectionnés par l'utilisateur -->
       {% for m in menu %}
         <script>
         if({{ m.lieuRestauration_id }} == {{ n.id }}) arrayMenu.push({{ m.id }});
@@ -188,7 +200,6 @@
         }
         </script>
       {% endfor %}
-      
       {% for a in al %}
         <script>
         for (var k = 0; k < arrayAl.length; k++) {
@@ -209,25 +220,29 @@
         }
         </script>
       {% endfor %}
-      
       <script>
-      if(cptSg>0) arrSg[d] = 1;
-      else arrSg[d] = 0;
+      if(cptSg>0) arrSg[d] = 1; // Si la variable compteur 'sans glucose' est supèrieur à 0, cela veut dire qu'il y a au moins un menu sans glucose
+      else arrSg[d] = 0; // Sinon cela veut dire qu'il y en a pas
       if(cptSl>0) arrSl[d] = 1;
       else arrSl[d] = 0;
       if(cptVe>0) arrVe[d] = 1;
       else arrVe[d] = 0;
       if(cptVa>0) arrVa[d] = 1;
       else arrVa[d] = 0;
-      arrayRe = []; arrayAl = []; arrayMenu = []; arrayPP = [];
-      cptSl=0; cptVa=0; cptVe=0; cptSg=0;
-      d++;
+      arrayRe = []; arrayAl = []; arrayMenu = []; arrayPP = []; // On initialise les array
+      cptSl=0; cptVa=0; cptVe=0; cptSg=0; // ... et les compteurs
+      d++; // On incrémente d pour passer au lieu suivant
       </script>
+
+
+<!-- Parcours des favoris pour déterminer quels lieux afficher si le critère 'uniquement les favoris' est selectionné -->      
       {% for f in fav %}
         <script>
         if(({{ f.lieu_id|safe }} == {{ n.id|safe }}) && ({{ f.user_id|safe }} == {{ user.id|safe }})) arrayFav.push("{{ n.id|safe }}");
         </script>
       {% endfor %}
+
+<!-- Affectation des différents attributs des lieux pour pouvoir les réutiliser par la suite -->
       <script>
       tabId[i] = "{{ n.id|safe }}";
       tabNom[i] = "{{ n.nom|safe }}";
@@ -237,21 +252,19 @@
       i++;
       </script>
       
+<!--       Affichage du lien vers le lieu, du nom de ce lieu, de sa distance (fictive) et de sa note -->
       <span id="{{ n.id }}">
-        <li><a href="/appPrincipale/lieuR/{{ n.id }}/{{ user.id }}"> {{ n.nom }}</a>(Distance : <span id="{{ n.id }}deux"></span> km - Note {{ n.note }}/5)</li>
+        <li><a href="/appPrincipale/lieuR/{{ n.id }}/{{ user.id }}"> {{ n.nom }}</a>(Distance : {{ n.distance }} km - Note {{ n.note }}/5)</li>
       </span>
-      <!--     <script>
-      id_lieuLoc[compti] = "{{ n.id|safe }}deux";
-      lieuPosX[compti] = {{ n.posX|safe }};
-      lieuPosY[compti] = {{ n.posY|safe }};
-      compti++;
-      </script> -->
     {% endfor %}
   </ul>
+
   <script>
+/*  La fonction DoSubmit sera appelée dès que la page sera chargée ou que l'on lancera une recherche.
+  Pour chaque lieu, cette fonction va vérifié grace aux critères si il faut afficher ou non un lieu dans les résultats de la recherche.*/
   function DoSubmit(){
   for (var j = 0; j < sizeLieux; j++) {
-  if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1
+  if(tabNom[j].toLowerCase().indexOf(document.getElementById("lieu").value.toLowerCase()) == -1  // Renvoie true si le lieu correspond au critère de type du lieu
   || !(document.getElementById(tabType[j]).checked)
   || !(fdist(tabDist[j]))
   || !(fnote(tabNote[j]))
@@ -263,6 +276,7 @@
   }
   
   }
+  // Fonction qui renvoie true si le lieu correspond au critère de distance
   function fdist(dist) {
   if(document.getElementById("ind1").checked) return true;
   else if(document.getElementById("1km").checked) return (dist<=1);
@@ -271,6 +285,7 @@
   else if(document.getElementById("4km").checked) return (dist<=4);
   return false;
   }
+  // Fonction qui renvoie true si le lieu correspond au critère note
   function fnote(note) {
   if(document.getElementById("ind2").checked) return true;
   else if(document.getElementById("1star").checked) return (note>=1);
@@ -279,12 +294,14 @@
   else if(document.getElementById("4star").checked) return (note>=4);
   return false;
   }
+  // Fonction qui renvoie true si le lieu correspond au critère favoris
   function ffavoris(id) {
   if(!(document.getElementById("ind3").checked)) {
   return arrayFav.includes(id);
   }
   return true;
   }
+  // Fonction qui renvoie true si le lieu correspond au critère allergies/régimes
   function falleregi(idar) {
   if(document.getElementById("vege").checked) {
   if(arrVe[idar]==0) return false;
@@ -300,9 +317,5 @@
   }
   return true;
   }
-  /*      function precisionRound(number, precision) {
-  var factor = Math.pow(10, precision);
-  return Math.round(number * factor) / factor;
-  }*/
   </script>
 {% endblock %}

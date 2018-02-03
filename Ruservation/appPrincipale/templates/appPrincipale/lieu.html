@@ -4,8 +4,8 @@
 {% load static %}
 
 
-
-
+<!-- Fonction qui est appelée au chargement de la page et qui va déterminer si le lieu est dans les favoris de l'utilisateur 
+pour afficher l'image en fonction (étoile jaune si il est dans les favoris, étoile grise sinon). -->
   <script>
     window.onload = function() {
       if(("{{ fav }}".localeCompare("False")) == 1) document.getElementById("imgFav").src = "{% static 'img/favoris2.png' %}";
@@ -34,8 +34,6 @@
     </div>
   </div>
 </div>
-  <!--   <a href="/appPrincipale/addFav/{{ lieu.id }}/{{ user.id }}/"> Ajouter au favoris</a><br>
--->
 <div class = "container">
   <div class = "row">
   <div class = "col-sm-4">
@@ -45,7 +43,7 @@
           {% for n in menupp %}
             {% for m in plats %}
               {% if n.platPrincipal_id == m.id %}
-                <li>{{ m.nom }}</li>
+                <li>{{ m.nom }}</li> <!-- Affichage des noms des plats principaux pour ce lieu -->
               {% endif %}
             {% endfor %}
           {% endfor %}

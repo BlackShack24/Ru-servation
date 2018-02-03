@@ -4,6 +4,8 @@
 
 {% block content %}
 
+
+
 <div class = "container">
   <div class ="row">
     <div class = "col">
@@ -16,27 +18,17 @@
   </div>
 </div>
 
-
-
-
-<script>
-/*     var myLatLng2;
-*/     
+<script>  
+/*	Cette fonction va afficher une carte interactive google maps ainsi que l'itinéraire à prendre, de la position de l'utilisateur au lieu sélectionné*/
     function myMap() {
-    	
-      var myLatLng = new google.maps.LatLng("{{ lieu.posX|safe }}","{{ lieu.posY|safe }}");
-      //var myLatLng2 = new google.maps.LatLng(48.6728463,6.1694717);
+      var myLatLng = new google.maps.LatLng("{{ lieu.posX|safe }}","{{ lieu.posY|safe }}"); // Position du lieu
       var myLatLng2;
       var directionsService = new google.maps.DirectionsService;
       var directionsDisplay = new google.maps.DirectionsRenderer;
-      var map = new google.maps.Map(document.getElementById('googleMap'), {
-        //zoom: 16,
-        //center: myLatLng
-      });
-
-     if (navigator.geolocation) {
+      var map = new google.maps.Map(document.getElementById('googleMap'), {});
+     if (navigator.geolocation) { // Vérifie que la géolocalisation est activée
           navigator.geolocation.getCurrentPosition(function(position) {
-            myLatLng2 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            myLatLng2 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); // Position de l'utilisateur
             map.setCenter(myLatLng2);
             directionsDisplay.setMap(map);
             directionsService.route({
@@ -47,35 +39,20 @@
               if (status === 'OK') directionsDisplay.setDirections(response);
               else window.alert('Directions request failed due to ' + status);
             });
-
             var distance = google.maps.geometry.spherical.computeDistanceBetween(myLatLng2, myLatLng);
-            document.getElementById("km").innerHTML = precisionRound((distance/1000),1);
-
+            document.getElementById("km").innerHTML = precisionRound((distance/1000),1); // Converti les m en km et arrondi au dixième
           });
       }
-
-/*            directionsDisplay.setMap(map);
-            directionsService.route({
-              origin: myLatLng2,
-              destination: myLatLng,
-              travelMode: 'WALKING'
-            }, function(response, status) {
-              if (status === 'OK') {
-               directionsDisplay.setDirections(response);
-              } else {
-                window.alert('Directions request failed due to ' + status);
-              }
-            }); */
-
-function precisionRound(number, precision) {
-  var factor = Math.pow(10, precision);
-  return Math.round(number * factor) / factor;
-}
-        
     }
+    // Fonction qui permet d'arrondir un nombre à virgule
+    function precisionRound(number, precision) {
+        var factor = Math.pow(10, precision);
+        return Math.round(number * factor) / factor;
+    }   
 
 </script>
 
+<!-- Utilisation de l'api google maps -->
  <script src="https://maps.google.com/maps/api/js?libraries=geometry,places&key=AIzaSyAsqUjKe9kLGBUQiqqfG8Q2V1YjkcrNi2Y&callback=myMap" async="" defer="defer" type="text/javascript"></script>
 
 
